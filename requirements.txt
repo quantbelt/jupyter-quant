@@ -1,0 +1,15 @@
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+statsmodels
+jupyterlab
+yfinance
+pystore
+quantstats
+#zipline-reloaded
+pyfolio-reloaded
+ib_insync
+numba
