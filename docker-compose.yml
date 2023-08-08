@@ -4,8 +4,8 @@ services:
     build:
       context: .
       platforms:
-        #- "linux/amd64"
-        - "linux/arm64"
+        - "linux/amd64"
+        #- "linux/arm64"
         #- linux/arm32v7"
         #- linux/arm64v8"
       args:
@@ -24,8 +24,8 @@ services:
     environment:
         USER: ${USER}
     volumes:
-      - lab_home:/home/${USER:-gordon}
       - ${PWD}/Notebooks:/home/${USER:-gordon}/Notebooks
+      - lab_home:/home/${USER:-gordon}
 
 volumes:
   lab_home:
