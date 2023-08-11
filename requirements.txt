@@ -1,4 +1,5 @@
 arch
+#cython == 0.29.26
 ib_insync
 jupyterlab
 matplotlib

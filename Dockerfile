@@ -2,7 +2,6 @@ ARG PYTHON_VERSION
 FROM python:"${PYTHON_VERSION:-3.11}" as builder
 
 COPY requirements.txt .
-#ADD https://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz /tmp
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   libsnappy-dev libatlas-base-dev gfortran \
@@ -16,7 +15,8 @@ RUN apt-get update && \
   curl -LO  http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub && \
   ./configure --prefix=/usr && make && make install && \
   cd / && rm -rf /tmp/ta-lib && \
-  pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+  pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt && \
+  rm /wheels/Cython*
 
 
 ARG PYTHON_VERSION

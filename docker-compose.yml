@@ -21,11 +21,11 @@ services:
     # dns: ${DNS}
     #extra_hosts:
     #  - host 10.10.0.5
-    environment:
-        USER: ${USER}
+    #environment:
+    #    USER: ${USER}
     volumes:
-      - ${PWD}/Notebooks:/home/${USER:-gordon}/Notebooks
-      - lab_home:/home/${USER:-gordon}
+      - lab_env:/home/gordon/.local
+      - ${PWD}/Notebooks:/home/gordon/Notebooks
 
 volumes:
-  lab_home:
+  lab_env:
