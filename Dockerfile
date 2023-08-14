@@ -35,7 +35,6 @@ RUN apt-get update && \
   useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
 
-WORKDIR /home/$USER
 USER $USER_ID:$USER_GID
 
 # base data directory
@@ -63,9 +62,10 @@ RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
   pip install --user --no-cache-dir /wheels/* && \
   # Import matplotlib the first time to build the font cache.
   MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
-  mkdir Notebooks && chown $USER_ID:$USER_GID Notebooks
+  mkdir ${JUPYTER_SERVER_ROOT}
 
 COPY entrypoint.sh /
+WORKDIR ${JUPYTER_SERVER_ROOT}
 
 CMD jupyter-lab --no-browser --ip 0.0.0.0
 ENTRYPOINT ["/entrypoint.sh"]
