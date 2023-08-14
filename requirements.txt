@@ -1,6 +1,17 @@
+arch
+#cython == 0.29.26
+ib_insync
 jupyterlab
 matplotlib
 numba
 numpy
 pandas
+pyfolio-reloaded
+pystore
+quantstats
+scikit-learn
+scipy
 seaborn
+statsmodels
+yfinance
+zipline-reloaded
