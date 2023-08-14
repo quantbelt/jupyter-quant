@@ -1,31 +1,33 @@
 #!/usr/bin/env bash
-  ###############################################################################
-  # entrypoint.sh
-  #
-  # docker jupyter
-  #
-  # entrypoint script for jupyter docker image. it starts jupyter-lab by
-  # default.
-  #
-  ###############################################################################
+###############################################################################
+# entrypoint.sh
+#
+# docker jupyter
+#
+# entrypoint script for jupyter docker image. it starts jupyter-lab by
+# default.
+#
+###############################################################################
 
-  set -e
+set -e
 
-  DAEMON=jupyter-lab
-  JUPYTER_OPT=''
+DAEMON=jupyter-lab
+JUPYTER_OPT=''
 
-  stop() {
-      echo "> Received SIGINT or SIGTERM. Shutting down $DAEMON"
-      # Get PID
-      local pid
-      pid=$(cat /tmp/$DAEMON.pid)
-      # Set TERM
-      kill -SIGTERM "${pid}"
-      # Wait for exit
-      wait "${pid}"
-      # All done.
-      echo "> Done... $?"
-  }
+[ -n "$NOTEBOOK_DIR" ] && JUPYTER_OPT+=" --notebook-dir=${NOTEBOOK_DIR}"
+
+stop() {
+    echo "> Received SIGINT or SIGTERM. Shutting down $DAEMON"
+    # Get PID
+    local pid
+    pid=$(cat /tmp/$DAEMON.pid)
+    # Set TERM
+    kill -SIGTERM "${pid}"
+    # Wait for exit
+    wait "${pid}"
+    # All done.
+    echo "> Done... $?"
+}
 
 echo "> Running Jupyter-lab"
 echo "> Running as $(id)"

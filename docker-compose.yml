@@ -17,12 +17,6 @@ services:
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888
-    # optional
-    # dns: ${DNS}
-    #extra_hosts:
-    #  - host 10.10.0.5
-    #environment:
-    #    USER: ${USER}
     volumes:
       - lab_env:/home/gordon/.local
       - ${PWD}/Notebooks:/home/gordon/Notebooks
