@@ -14,8 +14,6 @@ set -e
 DAEMON=jupyter-lab
 JUPYTER_OPT=''
 
-[ -n "$NOTEBOOK_DIR" ] && JUPYTER_OPT+=" --notebook-dir=${NOTEBOOK_DIR}"
-
 stop() {
     echo "> Received SIGINT or SIGTERM. Shutting down $DAEMON"
     # Get PID
