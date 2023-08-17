@@ -1,11 +1,15 @@
+#
+# Build stage
+#
 ARG PYTHON_VERSION
 FROM python:"${PYTHON_VERSION:-3.11}" as builder
 
 COPY requirements.txt .
-RUN apt-get update && \
+RUN echo "deb http://deb.debian.org/debian bookworm contrib" > tee /etc/apt/sources.list.d/contrib.list && \
+  apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  libsnappy-dev libatlas-base-dev gfortran \
-  pkg-config libfreetype6-dev hdf5-tools && \
+  libsnappy-dev libatlas-base-dev gfortran msttcorefonts pkg-config \
+  libfreetype6-dev hdf5-tools && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
@@ -18,6 +22,9 @@ RUN apt-get update && \
   cd / && rm -rf /tmp/ta-lib && \
   pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
 
+#
+# Final stage
+#
 ARG PYTHON_VERSION
 FROM python:"${PYTHON_VERSION:-3.11}"-slim
 
@@ -28,9 +35,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="$PATH:/home/$USER/.local/bin"
 
+COPY --from=setup /usr/share/fonts/truetype /usr/share/fonts/truetype
+
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  openssh-client  curl git tzdata unzip less xclip nano-tiny ffmpeg pandoc && \
+  openssh-client sudo curl git tzdata unzip less xclip nano-tiny ffmpeg pandoc && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* && \
   groupadd --gid ${USER_GID} ${USER} && \
   useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
