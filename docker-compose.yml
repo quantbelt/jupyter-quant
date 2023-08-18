@@ -14,12 +14,16 @@ services:
         USER_GID: ${USER_GID}
         PYTHON_VERSION: ${PYTHON_VERSION}
     image: gnzsnz/jupyter-lab:${IMAGE_VERSION}
+    environment:
+      APT_PROXY: ${APT_PROXY}
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888
     volumes:
-      - lab_env:/home/gordon/.local
+      - lab_conf:/home/gordon/.config
+      - lab_data:/home/gordon/.local
       - ${PWD}/Notebooks:/home/gordon/Notebooks
 
 volumes:
-  lab_env:
+  lab_data:
+  lab_conf:

@@ -1,11 +1,15 @@
 #
-# Build stage
+# Builder stage
 #
 ARG PYTHON_VERSION
-FROM python:"${PYTHON_VERSION:-3.11}" as builder
+FROM python:"${PYTHON_VERSION:-3.11}" AS builder
 
 COPY requirements.txt .
-RUN echo "deb http://deb.debian.org/debian bookworm contrib" > tee /etc/apt/sources.list.d/contrib.list && \
+RUN if [ -n "$APT_PROXY" ]; then \
+      echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
+      | tee /etc/apt/apt.conf.d/01proxy \
+    ;fi && \
+  echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   libsnappy-dev libatlas-base-dev gfortran msttcorefonts pkg-config \
@@ -35,9 +39,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="$PATH:/home/$USER/.local/bin"
 
-COPY --from=setup /usr/share/fonts/truetype /usr/share/fonts/truetype
+COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
 
-RUN apt-get update && \
+RUN if [ -n "$APT_PROXY" ]; then \
+      echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
+      | tee /etc/apt/apt.conf.d/01proxy \
+    ;fi && \
+  apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   openssh-client sudo curl git tzdata unzip less xclip nano-tiny ffmpeg pandoc && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
@@ -49,22 +57,24 @@ USER $USER_ID:$USER_GID
 
 # base data directory
 ENV BASE_DATA="/home/${USER}/.local"
+ENV BASE_CONFIG="/home/${USER}/.config"
+
 # XDG env
 ENV XDG_CACHE_HOME="${BASE_DATA}/cache"
-ENV XDG_CONFIG_HOME="${BASE_DATA}/etc"
+ENV XDG_CONFIG_HOME="${BASE_CONFIG}"
 ENV XDG_DATA_HOME="${BASE_DATA}/share "
 ENV XDG_STATE_HOME="${BASE_DATA}/state"
 # ipython
-ENV IPYTHONDIR="${BASE_DATA}/etc/ipython"
+ENV IPYTHONDIR="${BASE_CONFIG}/ipython"
 # jupyter
-ENV JUPYTER_CONFIG_DIR="${BASE_DATA}/etc/jupyter"
+ENV JUPYTER_CONFIG_DIR="${BASE_CONFIG}/jupyter"
 ENV JUPYTER_DATA_DIR="${BASE_DATA}/share/jupyter"
 ENV JUPYTERLAB_DIR="${BASE_DATA}/share/jupyter/lab"
 ENV JUPYTERLAB_SETTINGS_DIR="${JUPYTER_CONFIG_DIR}/lab/user-settings"
 ENV JUPYTERLAB_WORKSPACES_DIR="${JUPYTER_CONFIG_DIR}/lab/workspaces"
 ENV JUPYTER_SERVER_ROOT="/home/${USER}/Notebooks"
 # matplotlib
-ENV MPLCONFIGDIR="${BASE_DATA}/etc/matplotlib"
+ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
 #shell
 ENV SHELL="/bin/bash"
 
