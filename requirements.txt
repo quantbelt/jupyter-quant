@@ -1,13 +1,17 @@
-arch
 #cython == 0.29.26
+arch
+hurst
 ib_insync
 jupyterlab
+jupyterlab-lsp
 matplotlib
 numba
 numpy
 pandas
 pyfolio-reloaded
+pykalman
 pystore
+python-lsp-server
 quantstats
 scikit-learn
 scipy
