@@ -12,7 +12,21 @@
 set -e
 
 DAEMON=jupyter-lab
-JUPYTER_OPT=''
+#JUPYTER_OPT=''
+
+# jupyterlab-lsp
+JUPYTER_OPT='--ContentsManager.allow_hidden=True'
+
+# APT Proxy Cache
+if [ -n "${APT_PROXY}" ]; then
+    echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
+      | sudo tee /etc/apt/apt.conf.d/01proxy
+fi;
+
+#
+if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
+    ln -s / .lsp_symlink
+fi;
 
 stop() {
     echo "> Received SIGINT or SIGTERM. Shutting down $DAEMON"
@@ -30,9 +44,12 @@ stop() {
 echo "> Running Jupyter-lab"
 echo "> Running as $(id)"
 echo "> Parameters: $*"
+echo "> Jupyter options: $JUPYTER_OPT"
+echo "> basename: $1"
+
 if [ "$(basename "$1")" == "$DAEMON" ]; then
 
-    echo "> Starting $* ... $JUPYTER_OPT"
+    echo "> Starting $* $JUPYTER_OPT"
     trap stop SIGINT SIGTERM
     "$@" "${JUPYTER_OPT}" &
     pid="$!"
@@ -43,9 +60,9 @@ if [ "$(basename "$1")" == "$DAEMON" ]; then
 
 elif echo "$*" | grep ^-- ; then
     # accept parameters from command line or compose
-    echo "> Starting $* ... $JUPYTER_OPT"
+    echo "> Starting $* $JUPYTER_OPT"
     trap stop SIGINT SIGTERM
-    jupyter-lab --no-browser --ip 0.0.0.0 "$@" "${JUPYTER_OPT}" &
+    jupyter-lab --no-browser --ip=0.0.0.0 "${JUPYTER_OPT}" "$@" &
     pid="$!"
     echo "$pid" > /tmp/"$DAEMON".pid
     echo "> $DAEMON pid: $pid"
@@ -53,5 +70,6 @@ elif echo "$*" | grep ^-- ; then
     exit $?
 else
     # run command from docker run
-    exec "$@"
+    echo "> Starting $* "
+    exec "$@" 
 fi
