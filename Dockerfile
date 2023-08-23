@@ -4,16 +4,18 @@
 ARG PYTHON_VERSION
 FROM python:"${PYTHON_VERSION:-3.11}" AS builder
 
+ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
+
 COPY requirements.txt .
 RUN if [ -n "$APT_PROXY" ]; then \
       echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
-      | tee /etc/apt/apt.conf.d/01proxy \
+      | tee "${APT_PROXY_FILE}" \
     ;fi && \
   echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   libsnappy-dev libatlas-base-dev gfortran msttcorefonts pkg-config \
-  libfreetype6-dev hdf5-tools && \
+  libfreetype6-dev hdf5-tools cmake && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
@@ -32,28 +34,14 @@ RUN if [ -n "$APT_PROXY" ]; then \
 ARG PYTHON_VERSION
 FROM python:"${PYTHON_VERSION:-3.11}"-slim
 
+ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
+
 ENV USER="${USER:-gordon}"
 ARG USER_ID="${USER_ID:-1000}"
 ARG USER_GID="${USER_GID:-1000}"
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PATH="$PATH:/home/$USER/.local/bin"
-
-COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
-
-RUN if [ -n "$APT_PROXY" ]; then \
-      echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
-      | tee /etc/apt/apt.conf.d/01proxy \
-    ;fi && \
-  apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  openssh-client sudo curl git tzdata unzip less xclip nano-tiny ffmpeg pandoc && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* && \
-  groupadd --gid ${USER_GID} ${USER} && \
-  useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
-  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
-
-USER $USER_ID:$USER_GID
 
 # base data directory
 ENV BASE_DATA="/home/${USER}/.local"
@@ -78,6 +66,26 @@ ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
 #shell
 ENV SHELL="/bin/bash"
 
+COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
+
+RUN if [ -n "$APT_PROXY" ]; then \
+      echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
+      | tee "${APT_PROXY_FILE}" \
+    ;fi && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+  openssh-client sudo curl git tzdata unzip less xclip nano-tiny ffmpeg \
+  pandoc stow jq && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* && \
+  if [ -f "${APT_PROXY_FILE}" ]; then \
+    rm "${APT_PROXY_FILE}" \
+  ;fi && \
+  groupadd --gid ${USER_GID} ${USER} && \
+  useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
+  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers 
+
+USER $USER_ID:$USER_GID
+
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
   pip install --user --no-cache-dir /wheels/* && \
   # Import matplotlib the first time to build the font cache.
@@ -87,5 +95,5 @@ RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
 COPY entrypoint.sh /
 WORKDIR ${JUPYTER_SERVER_ROOT}
 
-CMD jupyter-lab --no-browser --ip 0.0.0.0
+CMD ["jupyter-lab", "--no-browser", "--ip=0.0.0.0"]
 ENTRYPOINT ["/entrypoint.sh"]

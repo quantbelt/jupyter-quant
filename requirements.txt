@@ -1,21 +1,25 @@
-#cython == 0.29.26
 arch
+bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
 hurst
 ib_insync
 jupyterlab
 jupyterlab-lsp
 matplotlib
 numba
+numexpr
 numpy
 pandas
 pyfolio-reloaded
 pykalman
+pymc
+PyPortfolioOpt
 pystore
-python-lsp-server
-quantstats
+pytensor
+jedi-language-server
+quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn
 scipy
 seaborn
 statsmodels
 yfinance
-zipline-reloaded
+zipline-reloaded 
