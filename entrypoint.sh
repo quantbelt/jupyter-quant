@@ -47,7 +47,7 @@ echo "> Parameters: $*"
 echo "> Jupyter options: $JUPYTER_OPT"
 echo "> basename: $1"
 
-if [ "$(basename "$1")" == "$DAEMON" ]; then
+if [ "$(basename "$1" 2> /dev/null)" == "$DAEMON" ]; then
 
     echo "> Starting $* $JUPYTER_OPT"
     trap stop SIGINT SIGTERM
