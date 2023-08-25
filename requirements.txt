@@ -15,6 +15,8 @@ pymc
 PyPortfolioOpt
 pystore
 pytensor
+py_vollib
+py_vollib_vectorized
 jedi-language-server
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn
