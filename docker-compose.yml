@@ -1,6 +1,6 @@
 version: "3.6"
 services:
-  jupyter-lab:
+  jupyter-quant:
     build:
       context: .
       platforms:
@@ -14,7 +14,7 @@ services:
         USER_GID: ${USER_GID}
         PYTHON_VERSION: ${PYTHON_VERSION}
         APT_PROXY: ${APT_PROXY}
-    image: gnzsnz/jupyter-lab:${IMAGE_VERSION}
+    image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
     environment:
       APT_PROXY: ${APT_PROXY}
       QB_CONF: ${QB_CONF}
@@ -23,10 +23,11 @@ services:
     ports:
       - ${LISTEN_PORT}:8888
     volumes:
-      - lab_conf:/home/gordon/.config
-      - lab_data:/home/gordon/.local
+      - quant_conf:/home/gordon/.config
+      - quant_data:/home/gordon/.local
       - ${PWD}/Notebooks:/home/gordon/Notebooks
 
 volumes:
-  lab_data:
-  lab_conf:
+  quant_conf:
+  quant_data:
+

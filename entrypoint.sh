@@ -19,11 +19,18 @@ JUPYTER_OPT='--ContentsManager.allow_hidden=True'
 
 # APT Proxy Cache
 if [ -n "${APT_PROXY}" ]; then
-    echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
+    echo "Acquire::http { Proxy "'$APT_PROXY'"; }"  \
       | sudo tee /etc/apt/apt.conf.d/01proxy
 fi;
 
-#
+# dotfiles
+if [ -d "$BYODF" ]; then
+    echo "> setting dotfiles 📌 at $BYODF"
+    stow --adopt -t "$HOME" -d "$(dirname "$BYODF")" "$(basename "$BYODF")"
+    git -C "$BYODF" reset --hard
+fi;
+
+# language server symlink
 if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
     ln -s / .lsp_symlink
 fi;
@@ -41,11 +48,10 @@ stop() {
     echo "> Done... $?"
 }
 
-echo "> Running Jupyter-lab"
+echo "> Running Jupyter-lab 🐍"
 echo "> Running as $(id)"
 echo "> Parameters: $*"
 echo "> Jupyter options: $JUPYTER_OPT"
-echo "> basename: $1"
 
 if [ "$(basename "$1" 2> /dev/null)" == "$DAEMON" ]; then
 
