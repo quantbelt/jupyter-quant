@@ -25,4 +25,4 @@ scipy
 seaborn
 statsmodels
 yfinance
-zipline-reloaded 
+zipline-reloaded
