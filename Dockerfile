@@ -63,7 +63,7 @@ ENV JUPYTERLAB_WORKSPACES_DIR="${JUPYTER_CONFIG_DIR}/lab/workspaces"
 ENV JUPYTER_SERVER_ROOT="/home/${USER}/Notebooks"
 # matplotlib
 ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
-#shell
+# shell
 ENV SHELL="/bin/bash"
 
 COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype

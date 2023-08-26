@@ -1,5 +1,6 @@
 arch
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
+bottleneck
 hurst
 ib_insync
 jupyterlab
