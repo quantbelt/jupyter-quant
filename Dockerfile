@@ -82,7 +82,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   ;fi && \
   groupadd --gid ${USER_GID} ${USER} && \
   useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
-  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers 
+  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
 
 USER $USER_ID:$USER_GID
 
