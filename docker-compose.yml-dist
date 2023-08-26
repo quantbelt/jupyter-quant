@@ -14,7 +14,7 @@ services:
         APT_PROXY: ${APT_PROXY}
     image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
     environment:
-      APT_PROXY: ${APT_PROXY:-}
+      APT_PROXY: ${APT_PROXY}
       BYODF: ${BYODF:-}
     restart: unless-stopped
     ports:

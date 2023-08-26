@@ -12,10 +12,6 @@
 set -e
 
 DAEMON=jupyter-lab
-#JUPYTER_OPT=''
-
-# jupyterlab-lsp
-JUPYTER_OPT='--ContentsManager.allow_hidden=True'
 
 # APT Proxy Cache
 if [ -n "${APT_PROXY}" ]; then
@@ -29,6 +25,9 @@ if [ -d "$BYODF" ]; then
     stow --adopt -t "$HOME" -d "$(dirname "$BYODF")" "$(basename "$BYODF")"
     git -C "$BYODF" reset --hard
 fi;
+
+# jupyterlab-lsp
+JUPYTER_OPT='--ContentsManager.allow_hidden=True'
 
 # language server symlink
 if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
