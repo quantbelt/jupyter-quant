@@ -6,20 +6,14 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  USER: bastion
-  IMAGE_NAME: gnzsnz/bastion
-  SERVER_PORT: 2022
+  IMAGE_NAME: gnzsnz/jupyter-quant
+  PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   buildntest:
-    name: Build and test OpenSSH Bastion
-    strategy:
-      matrix:
-        image_os: [focal, jammy] # bastion docker image OS
-        runner_os: [20.04, 22.04] # CI runner
-        server_os: [focal, jammy] # server&client OS
+    name: Build and test
 
-    runs-on: ubuntu-${{ matrix.runner_os}}
+    runs-on: ubuntu-latest
     continue-on-error: true
 
     steps:
@@ -34,9 +28,24 @@ jobs:
             echo $line >> $GITHUB_ENV ;
           done < .env
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: ${{ env.PLATFORMS }}
+  
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+            ghcr.io/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=true
+  
       - name: Build Docker image
         uses: docker/build-push-action@v4
         with:
@@ -44,17 +53,8 @@ jobs:
           load: true
           context: .
           build-args: |
-            BASE_VERSION=${{ env.BASE_VERSION }}
-            IMAGE_VERSION=${{ env.IMAGE_VERSION }}
-          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}-${{ matrix.image_os }}
-
-      - name: Build server and client test image
-        uses: docker/build-push-action@v4
-        with:
-          push: false
-          load: true
-          context: test/
-          file: test/Dockerfile
-          build-args: |
-            BASE_VERSION=${{ env.BASE_VERSION }}
-          tags: openssh:${{ env.IMAGE_VERSION }}-${{ matrix.server_os }}
+            USER=${{ env.USER }}
+            USER_ID=${{ env.USER_ID }}
+            USER_GID=${{ env.USER_GID }}
+            PYTHON_VERSION=${{ env.PYTHON_VERSION}}
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
