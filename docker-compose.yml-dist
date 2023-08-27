@@ -6,8 +6,6 @@ services:
       platforms:
         - "linux/amd64"
         #- "linux/arm64"
-        #- linux/arm32v7"
-        #- linux/arm64v8"
       args:
         USER: ${USER}
         USER_ID: ${USER_ID}
@@ -17,8 +15,7 @@ services:
     image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
     environment:
       APT_PROXY: ${APT_PROXY}
-      QB_CONF: ${QB_CONF}
-      QB_STORAGE: ${QB_STORAGE}
+      BYODF: ${BYODF:-}
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888
