@@ -50,8 +50,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: false
-          load: true
+          load: false
           context: .
+          platforms: ${{ env.PLATFORMS }}
           build-args: |
             USER=${{ env.USER }}
             USER_ID=${{ env.USER_ID }}
