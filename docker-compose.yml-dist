@@ -16,6 +16,7 @@ services:
     environment:
       APT_PROXY: ${APT_PROXY}
       BYODF: ${BYODF:-}
+      PIP_REQUIRE_VIRTUALENV: ${PIP_REQUIRE_VIRTUALENV:-}
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888

@@ -15,6 +15,7 @@ DAEMON=jupyter-lab
 
 # APT Proxy Cache
 if [ -n "${APT_PROXY}" ]; then
+    echo "> Setting apt proxy 📌"
     echo "Acquire::http { Proxy "'$APT_PROXY'"; }"  \
       | sudo tee /etc/apt/apt.conf.d/01proxy
 fi;
@@ -34,8 +35,15 @@ if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
     ln -s / .lsp_symlink
 fi;
 
+if [[ -n "$PIP_REQUIRE_VIRTUALENV" ]]; then
+    echo "PIP_REQUIRE_VIRTUALENV 📌 set to: $PIP_REQUIRE_VIRTUALENV"
+else
+    PIP_REQUIRE_VIRTUALENV=false
+    export PIP_REQUIRE_VIRTUALENV=false
+fi
+
 stop() {
-    echo "> Received SIGINT or SIGTERM. Shutting down $DAEMON"
+    echo "> 😘 Received SIGINT or SIGTERM. Shutting down $DAEMON"
     # Get PID
     local pid
     pid=$(cat /tmp/$DAEMON.pid)
