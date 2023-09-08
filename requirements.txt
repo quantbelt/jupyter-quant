@@ -17,7 +17,7 @@ pandas
 py_vollib
 py_vollib_vectorized
 pyfolio-reloaded
-pykalman
+pykalman @ git+https://github.com/gnzsnz/pykalman.git@getargspec
 pymc
 PyPortfolioOpt
 pystore
