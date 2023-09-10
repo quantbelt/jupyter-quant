@@ -19,13 +19,14 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
-  curl -LO https://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && \
-  tar xzf /tmp/ta-lib-0.4.0-src.tar.gz && \
-  cd /tmp/ta-lib && \
-  curl -LO  http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.guess && \
-  curl -LO  http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub && \
-  ./configure --prefix=/usr && make && make install && \
-  cd / && rm -rf /tmp/ta-lib && \
+  curl -LO https://github.com/gnzsnz/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
+  curl -LO https://github.com/gnzsnz/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
+  sha256sum -c ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
+  cd / && tar xzf /tmp/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
+  export PREFIX=/usr/local/ta-lib && \
+  export TA_LIBRARY_PATH=$PREFIX/lib && \
+  export TA_INCLUDE_PATH=$PREFIX/include && \
+  # end TA-Lib
   pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
 
 #
