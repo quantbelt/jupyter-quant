@@ -65,10 +65,15 @@ ENV JUPYTERLAB_WORKSPACES_DIR="${JUPYTER_CONFIG_DIR}/lab/workspaces"
 ENV JUPYTER_SERVER_ROOT="/home/${USER}/Notebooks"
 # matplotlib
 ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
+# ta-lib
+ENV TA_PREFIX=/usr/local/ta-lib
+ENV TA_LIBRARY_PATH=$TA_PREFIX/lib
+ENV TA_INCLUDE_PATH=$TA_PREFIX/include
 # shell
 ENV SHELL="/bin/bash"
 
 COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
+COPY --from=builder /usr/local/ta-lib/ /usr/local/ta-lib/
 
 RUN if [ -n "$APT_PROXY" ]; then \
       echo 'Acquire::http { Proxy "'$APT_PROXY'"; }'  \
