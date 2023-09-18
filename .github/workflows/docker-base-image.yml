@@ -36,7 +36,7 @@ jobs:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v2
+            uses: docker/setup-qemu-action@v3
             with:
               platforms: ${{ env.PLATFORMS }}
   
@@ -82,7 +82,7 @@ jobs:
               done < .env
 
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v2
+            uses: docker/setup-qemu-action@v3
             with:
               platforms: ${{ env.PLATFORMS }}
 
