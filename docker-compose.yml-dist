@@ -1,0 +1,31 @@
+version: "3.6"
+services:
+  jupyter-quant:
+    build:
+      context: .
+      platforms:
+        - "linux/amd64"
+        #- "linux/arm64"
+      args:
+        USER: ${USER}
+        USER_ID: ${USER_ID}
+        USER_GID: ${USER_GID}
+        PYTHON_VERSION: ${PYTHON_VERSION}
+        APT_PROXY: ${APT_PROXY}
+    image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
+    environment:
+      APT_PROXY: ${APT_PROXY}
+      BYODF: ${BYODF:-}
+      PIP_REQUIRE_VIRTUALENV: ${PIP_REQUIRE_VIRTUALENV:-}
+    restart: unless-stopped
+    ports:
+      - ${LISTEN_PORT}:8888
+    volumes:
+      - quant_conf:/home/gordon/.config
+      - quant_data:/home/gordon/.local
+      - ${PWD}/Notebooks:/home/gordon/Notebooks
+
+volumes:
+  quant_conf:
+  quant_data:
+

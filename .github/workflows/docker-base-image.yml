@@ -1,0 +1,105 @@
+name: Check docker image
+
+on:
+  schedule:
+    - cron:  '20 4 * * *' # every day at 420 am
+  workflow_dispatch:
+
+env:
+    IMAGE_NAME: gnzsnz/jupyter-quant
+    BASE_IMAGE: python
+    PLATFORMS: linux/amd64,linux/arm64
+
+jobs:
+    check_base:
+        runs-on: ubuntu-latest
+        outputs:
+          needs-updating: ${{ steps.check.outputs.needs-updating }}
+        steps:
+
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Get enviroment variables
+            run: |
+              grep -v '#' .env-dist | grep '=' > .env
+              while IFS= read -r line; do
+                  echo $line >> $GITHUB_ENV ;
+              done < .env
+
+          - name: Check if update available
+            id: check
+            uses: lucacome/docker-image-update-checker@v1
+            with:
+              base-image: ${{ env.BASE_IMAGE }}:${{ env.PYTHON_VERSION }}-slim
+              image: ${{ env.IMAGE_NAME}}:${{ env.IMAGE_VERSION }}
+              platforms: ${{ env.PLATFORMS }}
+
+          - name: Set up QEMU
+            uses: docker/setup-qemu-action@v2
+            with:
+              platforms: ${{ env.PLATFORMS }}
+  
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v2
+
+          - name: Build Docker image
+            uses: docker/build-push-action@v5
+            with:
+              push: false
+              load: false
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+              context: .
+              build-args: |
+                  USER=${{ env.USER }}
+                  USER_ID=${{ env.USER_ID }}
+                  USER_GID=${{ env.USER_GID }}
+                  PYTHON_VERSION=${{ env.PYTHON_VERSION}}
+              tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+  
+    build:
+        runs-on: ubuntu-latest
+        needs: check_base
+        if: needs.check_base.outputs.needs-updating == 'true'
+        steps:
+
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Create issue
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              gh issue create -t "Base images updates found for ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}" \
+              -b "A new build&publish might be needed."
+
+          - name: Get enviroment variables
+            run: |
+              grep -v '#' .env-dist | grep '=' > .env
+              while IFS= read -r line; do
+                  echo $line >> $GITHUB_ENV ;
+              done < .env
+
+          - name: Set up QEMU
+            uses: docker/setup-qemu-action@v2
+            with:
+              platforms: ${{ env.PLATFORMS }}
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v2
+
+          - name: Build Docker image
+            uses: docker/build-push-action@v5
+            with:
+              push: false
+              load: false
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+              context: .
+              build-args: |
+                  USER=${{ env.USER }}
+                  USER_ID=${{ env.USER_ID }}
+                  USER_GID=${{ env.USER_GID }}
+                  PYTHON_VERSION=${{ env.PYTHON_VERSION}}
+              tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
