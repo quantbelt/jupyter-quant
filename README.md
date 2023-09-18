@@ -64,7 +64,7 @@ This allows to have ephemeral containers and to keep your notebooks (3), your co
 
 ## Common tasks
 
-- get running server URL
+### Get running server URL
   
 ```bash
 docker exec -it jupyterquant jupyter-server list
@@ -80,26 +80,26 @@ docker logs -t jupyter-quant 2>&1 | grep '127.0.0.1:8888/lab?token='
 
 You will need to change hostname (40798f7a604a in this case) or 127.0.0.1 by your docker host ip.
 
-- show jupyter config
+### Show jupyter config
 
 ```bash
 docker exec -it jupyter-quant jupyter-server --show-config
 ```
 
-- set password
+### Set password
 
 ```bash
 docker exec -it jupyter-quant jupyter-server password
 ```
 
-- get help
+### Get command line help
 
 ```bash
 docker exec -it jupyter-quant jupyter-server --help
 docker exec -it jupyter-quant jupyter-lab --help
 ```
 
-- get installed packages
+### List installed packages
 
 ```bash
 docker exec -it jupyter-quant pip list
@@ -107,20 +107,22 @@ docker exec -it jupyter-quant pip list
 docker exec -it jupyter-quant pip list -o
 ```
 
-- the image's entrypoint supports jupyter-lab parameters, for example
+### Pass parameters to jupyter-lab
 
 ```bash
 docker run -it --rm gnzsnz/jupyter-quant --core-mode
 docker run -it --rm gnzsnz/jupyter-quant --show-config-json
 ```
 
-- or run a command in the container
+### Run a command in the container
 
 ```bash
 docker run -it --rm gnzsnz/jupyter-quant bash
 ```
 
-- build wheels outside the container and import wheels to container
+### Build wheels outside the container
+
+Build wheels outside the container and import wheels to container
 
 ```bash
 # make sure python version match .env-dist
@@ -130,6 +132,6 @@ pip wheel --no-cache-dir --wheel-dir /wheels numpy
 
 This will build wheels for numpy (ot any other package that you need) and save the file in $PWD/wheels. Then you can copy the wheels in your notebooks mount (3 above) and install it within the container. You can even drag and drop into jupyter.
 
-- Install your dotfiles.
+### Install your dotfiles.
 
 `git clone` your dotfiles to `Notebook/etc/dotfiles`, set enviroment variable `BYODF=/home/gordon/Notebook/etc/dotfiles` in your docker compose. When the container starts up stow will create links like `/home/gordon/.bashrc`

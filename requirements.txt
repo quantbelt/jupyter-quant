@@ -25,6 +25,7 @@ pytensor
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn
 scipy
+sdepy
 seaborn
 statsmodels
 yfinance
