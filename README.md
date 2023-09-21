@@ -1,22 +1,22 @@
 # Jupyter Quant
 
-A dockerized Jupyter quant research enviroment.
+A dockerized Jupyter quant research environment.
 
 ## Highlights
 
-- Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers) containers. Relevant data for your enviroment will survive your container.
-- Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
-- Includes all major python packages for data and timeseries analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt)
-- Includes jedi language server
-- It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your enviroment.
-- Includes Cython, Numba, bottleneck and numexpr to speed up things
-- The usual suspects are included, numpy, pandas, sci-py, scikit-learn
 - Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib, zipline-reloaded, PyPortfolioOpt, etc.
+- The usual suspects are included, numpy, pandas, sci-py, scikit-learn
 - ib_insync for Interactive Broker connectivity. Works well with [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker)
+- Includes all major python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt)
+- Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers) containers. Relevant data for your environment will survive your container.
+- Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
+- Includes jedi language server
+- It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your environment.
+- Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
 - bash and stow, so you can BYODF (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, ssh, curl, bash completion and others.
-- Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have other linux boxes using you can leverage your cache. apt cache support major linux distributions not only debian/ubuntu.
-- It does not include a build environment. If you need to install a package that does not provide wheels you can build your wheels, as explained in [common tasks](#common-tasks)
+- Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have other Linux boxes using you can leverage your cache. apt cache support major Linux distributions not only Debian/Ubuntu.
+- It does not include a build environment. If you need to install a package that does not provide wheels you can build your wheels, as explained in [common tasks](#build-wheels-outside-the-container)
 
 ## Quick Start
 
@@ -30,6 +30,7 @@ services:
     environment:
       APT_PROXY: ${APT_PROXY:-}
       BYODF: ${BYODF:-}
+      TZ: America/New_York
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888
