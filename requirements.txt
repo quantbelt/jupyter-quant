@@ -1,6 +1,7 @@
 arch
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
 bottleneck
+exchange_calendars
 hurst
 ib_insync
 ipympl
