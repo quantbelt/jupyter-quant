@@ -1,6 +1,7 @@
 arch
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
 bottleneck
+exchange_calendars
 hurst
 ib_insync
 ipympl
@@ -25,6 +26,7 @@ pytensor
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn
 scipy
+sdepy
 seaborn
 statsmodels
 yfinance
