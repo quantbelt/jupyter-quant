@@ -1,3 +1,4 @@
+alphalens-reloaded
 arch
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
 bottleneck
@@ -29,5 +30,6 @@ scipy
 sdepy
 seaborn
 statsmodels
+yellowbrick
 yfinance
 zipline-reloaded
