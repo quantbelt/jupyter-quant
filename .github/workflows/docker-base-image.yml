@@ -36,15 +36,15 @@ jobs:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v2
+            uses: docker/setup-qemu-action@v3
             with:
               platforms: ${{ env.PLATFORMS }}
   
           - name: Set up Docker Buildx
-            uses: docker/setup-buildx-action@v2
+            uses: docker/setup-buildx-action@v3
 
           - name: Build Docker image
-            uses: docker/build-push-action@v4
+            uses: docker/build-push-action@v5
             with:
               push: false
               load: false
@@ -67,13 +67,6 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v4
 
-          - name: Create issue
-            env:
-              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            run: |
-              gh issue create -t "Base images updates found for ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}" \
-              -b "A new build&publish might be needed."
-
           - name: Get enviroment variables
             run: |
               grep -v '#' .env-dist | grep '=' > .env
@@ -81,16 +74,36 @@ jobs:
                   echo $line >> $GITHUB_ENV ;
               done < .env
 
+          - name: Create issue
+            id: create_issue
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              title="Base images updates found for ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}"
+              body="A new build&publish might be needed."
+
+              exists=$(gh issue list -S $title)
+
+              if [ -n "$exists" ] && [ "$exists" -gt 0]; then
+                echo "dup_issue=yes" >> $GITHUB_OUTPUT
+              else
+                gh issue create -t $title -b $body
+                echo "dup_issue=no" >> $GITHUB_OUTPUT
+              fi
+
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v2
+            uses: docker/setup-qemu-action@v3
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
             with:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up Docker Buildx
-            uses: docker/setup-buildx-action@v2
+            uses: docker/setup-buildx-action@v3
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
 
           - name: Build Docker image
-            uses: docker/build-push-action@v4
+            uses: docker/build-push-action@v5
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
             with:
               push: false
               load: false
