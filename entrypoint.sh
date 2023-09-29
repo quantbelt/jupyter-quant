@@ -27,6 +27,12 @@ if [ -d "$BYODF" ]; then
     git -C "$BYODF" reset --hard
 fi;
 
+# ssh keys
+if [ -d "${SSH_KEYDIR}" ]; then
+    echo "> Setting SSH key 🔑 at $SSH_KEYDIR"
+    ln -s "${SSH_KEYDIR}" /home/"${USER}"/.ssh
+fi
+
 # jupyterlab-lsp
 JUPYTER_OPT='--ContentsManager.allow_hidden=True'
 
@@ -34,13 +40,6 @@ JUPYTER_OPT='--ContentsManager.allow_hidden=True'
 if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
     ln -s / .lsp_symlink
 fi;
-
-if [[ -n "$PIP_REQUIRE_VIRTUALENV" ]]; then
-    echo "PIP_REQUIRE_VIRTUALENV 📌 set to: $PIP_REQUIRE_VIRTUALENV"
-else
-    PIP_REQUIRE_VIRTUALENV=false
-    export PIP_REQUIRE_VIRTUALENV=false
-fi
 
 stop() {
     echo "> 😘 Received SIGINT or SIGTERM. Shutting down $DAEMON"
