@@ -89,7 +89,8 @@ RUN if [ -n "$APT_PROXY" ]; then \
   ;fi && \
   groupadd --gid ${USER_GID} ${USER} && \
   useradd -ms /bin/bash --uid ${USER_ID} --gid ${USER_GID} ${USER} && \
-  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers
+  echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers && \
+  python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
 USER $USER_ID:$USER_GID
 
@@ -97,7 +98,8 @@ RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
   pip install --user --no-cache-dir /wheels/* && \
   # Import matplotlib the first time to build the font cache.
   MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
-  mkdir ${JUPYTER_SERVER_ROOT}
+  mkdir ${JUPYTER_SERVER_ROOT} && \
+  python -m compileall "${BASE_DATA}"/lib/python"$(echo $PYTHON_VERSION | cut -d '.' -f1,2)"/site-packages
 
 COPY entrypoint.sh /
 WORKDIR ${JUPYTER_SERVER_ROOT}
