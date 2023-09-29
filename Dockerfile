@@ -99,10 +99,16 @@ RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
   # Import matplotlib the first time to build the font cache.
   MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
   mkdir ${JUPYTER_SERVER_ROOT} && \
-  python -m compileall "${BASE_DATA}"/lib/python"$(echo $PYTHON_VERSION | cut -d '.' -f1,2)"/site-packages
+  python -c "import compileall; compileall.compile_dir('${BASE_DATA}/lib/python$(echo $PYTHON_VERSION | cut -d '.' -f1,2)/site-packages', force=True)"
 
 COPY entrypoint.sh /
 WORKDIR ${JUPYTER_SERVER_ROOT}
 
 CMD ["jupyter-lab", "--no-browser", "--ip=0.0.0.0"]
 ENTRYPOINT ["/entrypoint.sh"]
+
+LABEL org.opencontainers.image.source=https://github.com/gnzsnz/jupyter-quant
+LABEL org.opencontainers.image.url=https://github.com/gnzsnz/jupyter-quant/pkgs/container/jupyter-quant
+LABEL org.opencontainers.image.description="A dockerized Jupyter quant research enviroment. "
+LABEL org.opencontainers.image.licenses="Apache License Version 2.0"
+LABEL org.opencontainers.image.version=${IMAGE_VERSION}
