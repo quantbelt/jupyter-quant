@@ -16,6 +16,7 @@ services:
     environment:
       APT_PROXY: ${APT_PROXY}
       BYODF: ${BYODF:-}
+      SSH_KEYDIR: ${SSH_KEYDIR:-}
       PIP_REQUIRE_VIRTUALENV: ${PIP_REQUIRE_VIRTUALENV:-}
       TZ: ${QUANT_TZ:-}
     restart: unless-stopped

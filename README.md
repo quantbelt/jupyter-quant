@@ -7,14 +7,14 @@ A dockerized Jupyter quant research environment.
 - Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib, zipline-reloaded, PyPortfolioOpt, etc.
 - The usual suspects are included, numpy, pandas, sci-py, scikit-learn
 - ib_insync for Interactive Broker connectivity. Works well with [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker)
-- Includes all major python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt)
+- Includes all major python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt). For an extensive list check [list installed packages](#list-installed-packages) section.
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers) containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
 - Includes jedi language server
 - It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your environment.
 - Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
-- bash and stow, so you can BYODF (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, ssh, curl, bash completion and others.
+- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, [ss](#install-your-ssh-keys), curl, bash completion and others.
 - Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have other Linux boxes using you can leverage your cache. apt cache support major Linux distributions not only Debian/Ubuntu.
 - It does not include a build environment. If you need to install a package that does not provide wheels you can build your wheels, as explained in [common tasks](#build-wheels-outside-the-container)
 
@@ -30,7 +30,8 @@ services:
     environment:
       APT_PROXY: ${APT_PROXY:-}
       BYODF: ${BYODF:-}
-      TZ: America/New_York
+      SSH_KEYDIR: ${SSH_KEYDIR:-}
+      TZ: ${QUANT_TZ:-}
     restart: unless-stopped
     ports:
       - ${LISTEN_PORT}:8888
@@ -61,7 +62,7 @@ The image is designed to work with 3 volumes:
 1.  `quant_conf` - volume for ~/.config, all config goes here. This includes jupyter, ipython, matplotlib, etc
 1.  Bind mount (but you could use a named volume) - volume for all notebooks, under `~/Notebooks`.
 
-This allows to have ephemeral containers and to keep your notebooks (3), your config (2) and your additional packages (1). Eventually you would need to update the image, in this case your notebooks (3) can move without issues, your config (2) should still work but no warranty, and your packages could still be used. Eventually you would need to refresh (1) and less frecuently (2)
+This allows to have ephemeral containers and to keep your notebooks (3), your config (2) and your additional packages (1). Eventually you would need to update the image, in this case your notebooks (3) can move without issues, your config (2) should still work but no warranty, and your packages could still be used. Eventually you would need to refresh (1) and less frequently (2)
 
 ## Common tasks
 
@@ -136,3 +137,9 @@ This will build wheels for numpy (ot any other package that you need) and save t
 ### Install your dotfiles.
 
 `git clone` your dotfiles to `Notebook/etc/dotfiles`, set enviroment variable `BYODF=/home/gordon/Notebook/etc/dotfiles` in your docker compose. When the container starts up stow will create links like `/home/gordon/.bashrc`
+
+### Install your SSH keys
+
+You need to define environment variable `SSH_KEY_DIR` which should point to a location with your keys. Suggested place is `SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the wright permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
+
+The `entrypoint.sh` script will create a symbolic link pointing to $SSH_KEYDIR on `/home/gordon/.ssh`.
