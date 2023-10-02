@@ -14,7 +14,7 @@ A dockerized Jupyter quant research environment.
 - It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your environment.
 - Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
-- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, [ss](#install-your-ssh-keys), curl, bash completion and others.
+- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, [ssh](#install-your-ssh-keys), curl, bash completion and others.
 - Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have other Linux boxes using you can leverage your cache. apt cache support major Linux distributions not only Debian/Ubuntu.
 - It does not include a build environment. If you need to install a package that does not provide wheels you can build your wheels, as explained in [common tasks](#build-wheels-outside-the-container)
 
