@@ -61,3 +61,4 @@ jobs:
             USER_GID=${{ env.USER_GID }}
             PYTHON_VERSION=${{ env.PYTHON_VERSION}}
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
