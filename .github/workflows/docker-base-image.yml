@@ -84,7 +84,7 @@ jobs:
 
               exists=$(gh issue list -S "is:issue state:open in:title $title" | wc -l)
 
-              if [ -n "$exists" ] && [ "$exists" -gt 0]; then
+              if [ -n "$exists" ] && [ "$exists" -gt 0 ]; then
                 echo "dup_issue=yes" >> $GITHUB_OUTPUT
               else
                 gh issue create -t $title -b $body
