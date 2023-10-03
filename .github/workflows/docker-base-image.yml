@@ -82,12 +82,12 @@ jobs:
               title="Base images updates found for ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}"
               body="A new build&publish might be needed."
 
-              exists=$(gh issue list -S "is:issue state:open in:title 'Base images updates found for'" | wc -l)
+              exists=$(gh issue list -S "is:issue state:open in:title $title" | wc -l)
 
               if [ -n "$exists" ] && [ "$exists" -gt 0 ]; then
                 echo "dup_issue=yes" >> $GITHUB_OUTPUT
               else
-                gh issue create -t $title -b $body
+                gh issue create -t "$title" -b "$body"
                 echo "dup_issue=no" >> $GITHUB_OUTPUT
               fi
 
