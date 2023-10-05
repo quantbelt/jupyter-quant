@@ -2,7 +2,7 @@
 # Builder stage
 #
 ARG PYTHON_VERSION
-FROM python:"${PYTHON_VERSION:-3.11}" AS builder
+FROM python:"${PYTHON_VERSION:-3.12}" AS builder
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
@@ -33,7 +33,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
 # Final stage
 #
 ARG PYTHON_VERSION
-FROM python:"${PYTHON_VERSION:-3.11}"-slim
+FROM python:"${PYTHON_VERSION:-3.12}"-slim
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
