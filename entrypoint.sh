@@ -24,7 +24,7 @@ fi;
 if [ -d "$BYODF" ]; then
     echo "> setting dotfiles 📌 at $BYODF"
     stow --adopt -t "$HOME" -d "$(dirname "$BYODF")" "$(basename "$BYODF")"
-    git -C "$BYODF" reset --hard
+    git -C "$BYODF" reset --hard 1> /dev/null
 fi;
 
 # ssh keys
