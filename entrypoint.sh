@@ -24,13 +24,18 @@ fi;
 if [ -d "$BYODF" ]; then
     echo "> setting dotfiles 📌 at $BYODF"
     stow --adopt -t "$HOME" -d "$(dirname "$BYODF")" "$(basename "$BYODF")"
-    git -C "$BYODF" reset --hard
+    git -C "$BYODF" reset --hard 1> /dev/null
 fi;
 
 # ssh keys
 if [ -d "${SSH_KEYDIR}" ]; then
-    echo "> Setting SSH key 🔑 at $SSH_KEYDIR"
-    ln -s "${SSH_KEYDIR}" /home/"${USER}"/.ssh
+    if [ ! -L /home/"${USER}"/.ssh ]
+    then
+        echo "> Setting SSH key 🔑 at $SSH_KEYDIR"
+        ln -s "${SSH_KEYDIR}" /home/"${USER}"/.ssh
+    else
+        echo "> Setting SSH key 🔑: keys already exists /home/${USER}/.ssh"
+    fi
 fi
 
 # jupyterlab-lsp
