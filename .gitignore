@@ -1,3 +1,4 @@
 .env
 Notebooks/
 docker-compose.yml
+.python-version
