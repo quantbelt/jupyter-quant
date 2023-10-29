@@ -2,3 +2,5 @@
 Notebooks/
 docker-compose.yml
 .python-version
+.ipynb_checkpoints/
+.virtual_documents/
