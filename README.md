@@ -62,7 +62,7 @@ The image is designed to work with 3 volumes:
 1.  `quant_conf` - volume for ~/.config, all config goes here. This includes jupyter, ipython, matplotlib, etc
 1.  Bind mount (but you could use a named volume) - volume for all notebooks, under `~/Notebooks`.
 
-This allows to have ephemeral containers and to keep your notebooks (3), your config (2) and your additional packages (1). Eventually you would need to update the image, in this case your notebooks (3) can move without issues, your config (2) should still work but no warranty, and your packages could still be used. Eventually you would need to refresh (1) and less frequently (2)
+This allows to have ephemeral containers and to keep your notebooks (3), your config (2) and your additional packages (1). Eventually you would need to update the image, in this case your notebooks (3) can move without issues, your config (2) should still work but no warranty, and your packages in `quant_data` could still be used but you should refresh it with new image. Eventually you would need to refresh (1) and less frequently (2)
 
 ## Common tasks
 
