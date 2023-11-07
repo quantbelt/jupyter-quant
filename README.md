@@ -133,15 +133,15 @@ docker run -it --rm -v $PWD/wheels:/wheels python:3.11 bash
 pip wheel --no-cache-dir --wheel-dir /wheels numpy
 ```
 
-This will build wheels for numpy (ot any other package that you need) and save the file in $PWD/wheels. Then you can copy the wheels in your notebooks mount (3 above) and install it within the container. You can even drag and drop into jupyter.
+This will build wheels for numpy (or any other package that you need) and save the file in `$PWD/wheels`. Then you can copy the wheels in your notebooks mount (3 above) and install it within the container. You can even drag and drop into jupyter.
 
 ### Install your dotfiles.
 
-`git clone` your dotfiles to `Notebook/etc/dotfiles`, set enviroment variable `BYODF=/home/gordon/Notebook/etc/dotfiles` in your docker compose. When the container starts up stow will create links like `/home/gordon/.bashrc`
+`git clone` your dotfiles to `Notebook/etc/dotfiles`, set environment variable `BYODF=/home/gordon/Notebook/etc/dotfiles` in your docker compose. When the container starts up stow will create links like `/home/gordon/.bashrc`
 
 ### Install your SSH keys
 
-You need to define environment variable `SSH_KEY_DIR` which should point to a location with your keys. Suggested place is `SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the wright permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
+You need to define environment variable `SSH_KEY_DIR` which should point to a location with your keys. Suggested place is `SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the right permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
 
 The `entrypoint.sh` script will create a symbolic link pointing to `$SSH_KEYDIR` on `/home/gordon/.ssh`.
 
