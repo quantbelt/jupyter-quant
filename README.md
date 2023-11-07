@@ -5,12 +5,13 @@ A dockerized Jupyter quant research environment.
 ## Highlights
 
 - Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib, zipline-reloaded, PyPortfolioOpt, etc.
-- The usual suspects are included, numpy, pandas, sci-py, scikit-learn
-- ib_insync for Interactive Broker connectivity. Works well with [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker)
-- Includes all major python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt). For an extensive list check [list installed packages](#list-installed-packages) section.
+- The usual suspects are included, numpy, pandas, sci-py, scikit-learn, yellowbricks, shap, optuna.
+- ib_insync for Interactive Broker connectivity. Works well with [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
+- Includes all major Python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt). For an extensive list check [list installed packages](#list-installed-packages) section.
+- [Zipline-reloaded](https://github.com/stefan-jansen/zipline-reloaded/), [pyfolio-reloaded](https://github.com/stefan-jansen/pyfolio-reloaded) and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers) containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
-- Includes jedi language server
+- Includes jedi language server and jupyterlab-lsp, black and isort.
 - It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your environment.
 - Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
@@ -124,7 +125,7 @@ docker run -it --rm gnzsnz/jupyter-quant bash
 
 ### Build wheels outside the container
 
-Build wheels outside the container and import wheels to container
+Build wheels outside the container and import wheels into the container
 
 ```bash
 # make sure python version match .env-dist
@@ -142,4 +143,15 @@ This will build wheels for numpy (ot any other package that you need) and save t
 
 You need to define environment variable `SSH_KEY_DIR` which should point to a location with your keys. Suggested place is `SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the wright permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
 
-The `entrypoint.sh` script will create a symbolic link pointing to $SSH_KEYDIR on `/home/gordon/.ssh`.
+The `entrypoint.sh` script will create a symbolic link pointing to `$SSH_KEYDIR` on `/home/gordon/.ssh`.
+
+Within Jupyter's terminal you can then:
+
+```shell
+# start agent
+eval $(ssh-agent)
+# add keys to agent
+ssh-add
+# open a tunnel
+ssh -fNL 4001:localhost:4001 gordon@bastion-ssh
+```
