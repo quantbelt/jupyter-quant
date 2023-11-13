@@ -21,7 +21,7 @@ numba==0.58.1
 numexpr==2.8.7
 numpy==1.25.2
 optuna==3.4.0
-pandas==2.1.2
+pandas==2.1.3
 py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
 pyfolio-reloaded==0.9.5
