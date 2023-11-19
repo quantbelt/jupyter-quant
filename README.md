@@ -4,20 +4,37 @@ A dockerized Jupyter quant research environment.
 
 ## Highlights
 
-- Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib, zipline-reloaded, PyPortfolioOpt, etc.
-- The usual suspects are included, numpy, pandas, sci-py, scikit-learn, yellowbricks, shap, optuna.
-- ib_insync for Interactive Broker connectivity. Works well with [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
-- Includes all major Python packages for statistical and time series analysis, see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt). For an extensive list check [list installed packages](#list-installed-packages) section.
-- [Zipline-reloaded](https://github.com/stefan-jansen/zipline-reloaded/), [pyfolio-reloaded](https://github.com/stefan-jansen/pyfolio-reloaded) and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
-- Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers) containers. Relevant data for your environment will survive your container.
+- Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib,
+  zipline-reloaded, PyPortfolioOpt, etc.
+- The usual suspects are included, numpy, pandas, sci-py, scikit-learn,
+  yellowbricks, shap, optuna.
+- ib_insync for Interactive Broker connectivity. Works well with
+  [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
+- Includes all major Python packages for statistical and time series analysis,
+  see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt).
+  For an extensive list check
+  [list installed packages](#list-installed-packages) section.
+- [Zipline-reloaded](https://github.com/stefan-jansen/zipline-reloaded/),
+  [pyfolio-reloaded](https://github.com/stefan-jansen/pyfolio-reloaded)
+  and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
+- Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers)
+  containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
 - Includes jedi language server and jupyterlab-lsp, black and isort.
-- It does NOT include conda/mamba. All packages are installed with pip under ~/.local/lib/python. Which should be mounted in a dedicated volume to preserver your environment.
+- It does NOT include conda/mamba. All packages are installed with pip under
+  `~/.local/lib/python`. Which should be mounted in a dedicated volume to
+  preserver your environment.
 - Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
-- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot files). Plus common command line utilities like git, less, nano (tiny), jq, [ssh](#install-your-ssh-keys), curl, bash completion and others.
-- Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have other Linux boxes using you can leverage your cache. apt cache support major Linux distributions not only Debian/Ubuntu.
-- It does not include a build environment. If you need to install a package that does not provide wheels you can build your wheels, as explained in [common tasks](#build-wheels-outside-the-container)
+- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot
+  files). Plus common command line utilities like git, less, nano (tiny), jq,
+  [ssh](#install-your-ssh-keys), curl, bash completion and others.
+- Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have
+  other Linux boxes using it can leverage your cache. apt cache supports major
+  Linux distributions not only Debian/Ubuntu.
+- It does not include a built environment. If you need to install a package
+  that does not provide wheels you can build your wheels, as explained
+  in [common tasks](#build-wheels-outside-the-container)
 
 ## Quick Start
 
@@ -59,11 +76,19 @@ docker compose up
 
 The image is designed to work with 3 volumes:
 
-1.  `quant_data` - volume for ~/.local folder. It contains caches and all python packages. This enables to add additional packages through pip.
-1.  `quant_conf` - volume for ~/.config, all config goes here. This includes jupyter, ipython, matplotlib, etc
-1.  Bind mount (but you could use a named volume) - volume for all notebooks, under `~/Notebooks`.
+1. `quant_data` - volume for ~/.local folder. It contains caches and all
+   python packages. This enables to add additional packages through pip.
+2. `quant_conf` - volume for ~/.config, all config goes here. This includes
+   jupyter, ipython, matplotlib, etc
+3. Bind mount (but you could use a named volume) - volume for all notebooks,
+   under `~/Notebooks`.
 
-This allows to have ephemeral containers and to keep your notebooks (3), your config (2) and your additional packages (1). Eventually you would need to update the image, in this case your notebooks (3) can move without issues, your config (2) should still work but no warranty, and your packages in `quant_data` could still be used but you should refresh it with new image. Eventually you would need to refresh (1) and less frequently (2)
+This allows to have ephemeral containers and to keep your notebooks (3), your
+config (2) and your additional packages (1). Eventually you would need to
+update the image, in this case your notebooks (3) can move without issues,
+your config (2) should still work but no warranty, and your packages in
+`quant_data` could still be used but you should refresh it with a new image.
+Eventually, you would need to refresh (1) and less frequently (2)
 
 ## Common tasks
 
@@ -72,7 +97,8 @@ This allows to have ephemeral containers and to keep your notebooks (3), your co
 ```bash
 docker exec -it jupyterquant jupyter-server list
 Currently running servers:
-http://40798f7a604a:8888/?token=ebf9e870d2aa0ed877590eb83b4d3bbbdfbd55467422a167 :: /home/gordon/Notebooks
+http://40798f7a604a:8888/?token=
+ebf9e870d2aa0ed877590eb83b4d3bbbdfbd55467422a167 :: /home/gordon/Notebooks
 ```
 
 or
@@ -81,7 +107,8 @@ or
 docker logs -t jupyter-quant 2>&1 | grep '127.0.0.1:8888/lab?token='
 ```
 
-You will need to change hostname (40798f7a604a in this case) or 127.0.0.1 by your docker host ip.
+You will need to change hostname (40798f7a604a in this case) or 127.0.0.1 by
+your docker host ip.
 
 ### Show jupyter config
 
@@ -133,19 +160,28 @@ docker run -it --rm -v $PWD/wheels:/wheels python:3.11 bash
 pip wheel --no-cache-dir --wheel-dir /wheels numpy
 ```
 
-This will build wheels for numpy (or any other package that you need) and save the file in `$PWD/wheels`. Then you can copy the wheels in your notebooks mount (3 above) and install it within the container. You can even drag and drop into jupyter.
+This will build wheels for numpy (or any other package that you need) and save
+the file in `$PWD/wheels`. Then you can copy the wheels in your notebook mount
+(3 above) and install it within the container. You can even drag and drop into
+Jupyter.
 
-### Install your dotfiles.
+### Install your dotfiles
 
-`git clone` your dotfiles to `Notebook/etc/dotfiles`, set environment variable `BYODF=/home/gordon/Notebook/etc/dotfiles` in your docker compose. When the container starts up stow will create links like `/home/gordon/.bashrc`
+`git clone` your dotfiles to `Notebook/etc/dotfiles`, set environment variable
+`BYODF=/home/gordon/Notebook/etc/dotfiles` in your `docker-compose.yml` When
+the container starts up stow will create links like `/home/gordon/.bashrc`
 
 ### Install your SSH keys
 
-You need to define environment variable `SSH_KEY_DIR` which should point to a location with your keys. Suggested place is `SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the right permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
+You need to define environment variable `SSH_KEY_DIR` which should point to a
+location with your keys. The suggested place is
+`SSH_KEYDIR=/home/gordon/Notebooks/etc/ssh`, make sure the director has the
+right permissions. Something like `chmod 700 Notebooks/etc/ssh` should work.
 
-The `entrypoint.sh` script will create a symbolic link pointing to `$SSH_KEYDIR` on `/home/gordon/.ssh`.
+The `entrypoint.sh` script will create a symbolic link pointing to
+`$SSH_KEYDIR` on `/home/gordon/.ssh`.
 
-Within Jupyter's terminal you can then:
+Within Jupyter's terminal, you can then:
 
 ```shell
 # start agent
