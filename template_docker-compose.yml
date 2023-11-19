@@ -10,14 +10,13 @@ services:
         USER: ${USER}
         USER_ID: ${USER_ID}
         USER_GID: ${USER_GID}
-        PYTHON_VERSION: ${PYTHON_VERSION}
+        IMG_PYTHON_VERSION: ${IMG_PYTHON_VERSION}
         APT_PROXY: ${APT_PROXY}
     image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
     environment:
       APT_PROXY: ${APT_PROXY}
       BYODF: ${BYODF:-}
       SSH_KEYDIR: ${SSH_KEYDIR:-}
-      PIP_REQUIRE_VIRTUALENV: ${PIP_REQUIRE_VIRTUALENV:-}
       TZ: ${QUANT_TZ:-}
     restart: unless-stopped
     ports:
@@ -30,4 +29,3 @@ services:
 volumes:
   quant_conf:
   quant_data:
-
