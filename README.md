@@ -68,7 +68,7 @@ This allows to have ephemeral containers and to keep your notebooks (3), your co
 ## Common tasks
 
 ### Get running server URL
-  
+
 ```bash
 docker exec -it jupyterquant jupyter-server list
 Currently running servers:
