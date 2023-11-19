@@ -67,7 +67,7 @@ jobs:
             USER=${{ env.USER }}
             USER_ID=${{ env.USER_ID }}
             USER_GID=${{ env.USER_GID }}
-            PYTHON_VERSION=${{ env.PYTHON_VERSION}}
+            IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
           platforms: ${{ env.PLATFORMS }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
