@@ -10,7 +10,7 @@ ib_insync==0.9.86
 ipympl==0.9.3
 ipywidgets==8.1.1
 isort==5.12.0
-jedi-language-server==0.41.1
+jedi-language-server==0.41.2
 jupyterlab==4.0.8
 jupyterlab-lsp==5.0.0
 jupyterlab_code_formatter==2.2.1
