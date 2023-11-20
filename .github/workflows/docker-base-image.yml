@@ -31,7 +31,7 @@ jobs:
             id: check
             uses: lucacome/docker-image-update-checker@v1
             with:
-              base-image: ${{ env.BASE_IMAGE }}:${{ env.PYTHON_VERSION }}-slim
+              base-image: ${{ env.BASE_IMAGE }}:${{ env.IMG_PYTHON_VERSION }}-slim
               image: ${{ env.IMAGE_NAME}}:${{ env.IMAGE_VERSION }}
               platforms: ${{ env.PLATFORMS }}
 
