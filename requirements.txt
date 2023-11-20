@@ -32,7 +32,7 @@ pystore==0.1.23
 pytensor==2.17.4
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn==1.3.2
-scipy==1.11.3
+scipy==1.11.4
 sdepy==1.2.0
 seaborn==0.13.0
 shap==0.43.0
