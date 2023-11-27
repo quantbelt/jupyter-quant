@@ -12,7 +12,7 @@ ipywidgets==8.1.1
 isort==5.12.0
 jedi-language-server==0.41.2
 jupyterlab==4.0.9
-jupyterlab-lsp==5.0.0
+jupyterlab-lsp==5.0.1
 jupyterlab_code_formatter==2.2.1
 jupyterlab_widgets==3.0.9
 lightgbm==4.1.0
