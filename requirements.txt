@@ -29,7 +29,7 @@ pykalman @ git+https://github.com/gnzsnz/pykalman.git@getargspec
 pymc==5.9.2
 PyPortfolioOpt==1.5.5
 pystore==0.1.23
-pytensor==2.17.4
+pytensor==2.18.1
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn==1.3.2
 scipy==1.11.4
