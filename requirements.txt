@@ -39,5 +39,5 @@ shap==0.44.0
 statsmodels==0.14.0
 TA-Lib==0.4.28
 yellowbrick==1.5
-yfinance==0.2.32
+yfinance==0.2.33
 zipline-reloaded==3.0.3
