@@ -21,7 +21,7 @@ numba==0.58.1
 numexpr==2.8.8
 numpy==1.26.3
 optuna==3.5.0
-pandas==2.1.4
+pandas==2.2.0
 pip==23.3.2
 py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
