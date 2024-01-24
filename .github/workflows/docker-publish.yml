@@ -38,8 +38,9 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ env.IMAGE_NAME }}
             ghcr.io/${{ env.IMAGE_NAME }}
+#            ${{ env.IMAGE_NAME }}
+#            ghcr.io/${{ env.IMAGE_NAME }}
           flavor: |
             latest=true
 
