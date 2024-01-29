@@ -18,7 +18,7 @@ jupyterlab_widgets==3.0.9
 lightgbm==4.3.0
 matplotlib==3.8.2
 numba==0.58.1
-numexpr==2.8.8
+numexpr==2.9.0
 numpy==1.26.3
 optuna==3.5.0
 pandas==2.2.0
