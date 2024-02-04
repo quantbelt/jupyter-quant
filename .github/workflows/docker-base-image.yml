@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-    IMAGE_NAME: ghcr.io/gnzsnz/jupyter-quant
+    IMAGE_NAME: gnzsnz/jupyter-quant
     BASE_IMAGE: python
     PLATFORMS: linux/amd64,linux/arm64
 
