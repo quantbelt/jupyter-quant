@@ -19,7 +19,7 @@ lightgbm==4.3.0
 matplotlib==3.8.2
 numba==0.59.0
 numexpr==2.9.0
-numpy==1.26.3
+numpy==1.26.4
 optuna==3.5.0
 pandas==2.2.0
 pip==24.0
