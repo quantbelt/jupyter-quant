@@ -39,7 +39,7 @@ seaborn==0.13.2
 shap==0.44.1
 statsmodels==0.14.1
 TA-Lib==0.4.28
-tzdata==2023.4
+tzdata==2024.1
 yellowbrick==1.5
 yfinance==0.2.36
 zipline-reloaded==3.0.3
