@@ -1,6 +1,7 @@
 ###############################################################################
 # Builder stage
 ###############################################################################
+# hadolint global ignore=DL3003,DL3008,SC2028
 ARG IMG_PYTHON_VERSION
 FROM python:"${IMG_PYTHON_VERSION}" AS builder
 
@@ -84,8 +85,8 @@ RUN if [ -n "$APT_PROXY" ]; then \
     ;fi && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  openssh-client sudo curl git tzdata unzip less xclip nano-tiny ffmpeg \
-  pandoc stow jq bash-completion procps && \
+    openssh-client sudo curl graphviz git tzdata unzip less xclip nano-tiny \
+    ffmpeg pandoc stow jq bash-completion procps && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
     rm "${APT_PROXY_FILE}" \
