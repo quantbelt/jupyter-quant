@@ -24,7 +24,7 @@ matplotlib==3.8.3
 numba==0.59.0
 numexpr==2.9.0
 numpy==1.26.4
-optuna==3.5.0
+optuna==3.6.0
 pandas==2.2.1
 pip==24.0
 py_vollib==1.0.1
