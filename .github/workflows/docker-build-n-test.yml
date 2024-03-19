@@ -1,0 +1,64 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master" ]
+env:
+  IMAGE_NAME: gnzsnz/jupyter-quant
+  PLATFORMS: linux/amd64,linux/arm64
+
+jobs:
+  buildntest:
+    name: Build and test
+
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get enviroment variables
+        run: |
+          grep -v '#' .env-dist | grep '=' > .env
+          while IFS= read -r line; do
+            echo $line >> $GITHUB_ENV ;
+          done < .env
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: ${{ env.PLATFORMS }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+            ghcr.io/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=true
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          load: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          context: .
+          platforms: ${{ env.PLATFORMS }}
+          build-args: |
+            USER=${{ env.USER }}
+            USER_ID=${{ env.USER_ID }}
+            USER_GID=${{ env.USER_GID }}
+            IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
