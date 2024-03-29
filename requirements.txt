@@ -31,7 +31,7 @@ py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
 pyfolio-reloaded==0.9.5
 pykalman @ git+https://github.com/gnzsnz/pykalman.git@getargspec
-pymc==5.11.0
+pymc==5.12.0
 PyPortfolioOpt==1.5.5
 pystore==0.1.23
 pytensor==2.20.0
