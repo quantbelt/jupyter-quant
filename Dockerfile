@@ -18,7 +18,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   libsnappy-dev libatlas-base-dev gfortran msttcorefonts pkg-config \
-  libfreetype6-dev hdf5-tools cmake && \
+  libfreetype6-dev libhdf5-dev cmake && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
