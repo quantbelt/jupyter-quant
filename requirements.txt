@@ -1,5 +1,5 @@
 alphalens-reloaded==0.4.3
-arch==6.3.0
+arch==7.0.0
 arviz==0.18.0
 bambi==0.13.0
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
