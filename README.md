@@ -41,7 +41,6 @@ A dockerized Jupyter quant research environment.
 Create a `docker-compose.yml` file with this content
 
 ```yml
-version: "3.6"
 services:
   jupyter-quant:
     image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
