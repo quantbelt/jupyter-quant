@@ -29,7 +29,7 @@ pandas==2.2.2
 pip==24.0
 py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
-pyarrow==15.0.2
+pyarrow==16.0.0
 pyfolio-reloaded==0.9.5
 pykalman @ git+https://github.com/gnzsnz/pykalman.git@getargspec
 pymc==5.13.1
