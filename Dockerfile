@@ -17,7 +17,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  libsnappy-dev libatlas-base-dev gfortran msttcorefonts pkg-config \
+  libatlas-base-dev gfortran msttcorefonts pkg-config \
   libfreetype6-dev libhdf5-dev cmake && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
