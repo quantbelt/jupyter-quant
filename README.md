@@ -8,8 +8,11 @@ A dockerized Jupyter quant research environment.
   zipline-reloaded, PyPortfolioOpt, etc.
 - The usual suspects are included, numpy, pandas, sci-py, scikit-learn,
   yellowbricks, shap, optuna.
-- ib_insync for Interactive Broker connectivity. Works well with
+- [ib_async](https://github.com/ib-api-reloaded/ib_async) for Interactive Broker
+  connectivity. Works well with
   [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
+  [ib_insync](https://github.com/erdewit/ib_insync/) has been of invaluable all
+  this time, RIP Ewald.
 - Includes all major Python packages for statistical and time series analysis,
   see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt).
   For an extensive list check
@@ -20,7 +23,7 @@ A dockerized Jupyter quant research environment.
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers)
   containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
-- Includes jedi language server and jupyterlab-lsp, black and isort.
+- Includes jedi language server, jupyterlab-lsp, black and isort.
 - It does NOT include conda/mamba. All packages are installed with pip under
   `~/.local/lib/python`. Which should be mounted in a dedicated volume to
   preserver your environment.
