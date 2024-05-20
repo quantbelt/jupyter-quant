@@ -46,5 +46,5 @@ statsmodels==0.14.2
 TA-Lib==0.4.28
 tzdata==2024.1
 yellowbrick==1.5
-yfinance==0.2.38
+yfinance==0.2.40
 zipline-reloaded==3.0.4
