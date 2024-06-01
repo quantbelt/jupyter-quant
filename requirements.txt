@@ -32,10 +32,10 @@ py_vollib_vectorized==0.1.1
 pyarrow==16.1.0
 pyfolio-reloaded==0.9.7
 pykalman==0.9.7
-pymc==5.15.0
+pymc==5.15.1
 PyPortfolioOpt==1.5.5
 pystore @ git+https://github.com/gnzsnz/pystore.git@pyarrow
-pytensor==2.20.0
+pytensor==2.22.1
 quantstats @ git+https://github.com/gnzsnz/quantstats-cagr.git@cagr
 scikit-learn==1.5.0
 scipy==1.13.1
