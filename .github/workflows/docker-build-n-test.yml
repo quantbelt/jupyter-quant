@@ -7,6 +7,7 @@ on:
     branches: [ "master" ]
 env:
   IMAGE_NAME: gnzsnz/jupyter-quant
+  GH_IMAGE_NAME: ghcr.io/quantbelt/jupyter-quant
   PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
@@ -42,7 +43,7 @@ jobs:
         with:
           images: |
             ${{ env.IMAGE_NAME }}
-            ghcr.io/${{ env.IMAGE_NAME }}
+            ${{ env.GH_IMAGE_NAME }}
           flavor: |
             latest=true
 
