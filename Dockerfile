@@ -22,8 +22,8 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
-  curl -LO https://github.com/gnzsnz/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
-  curl -LO https://github.com/gnzsnz/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
+  curl -LO https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
+  curl -LO https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
   sha256sum -c ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
   cd / && tar xzf /tmp/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
   export PREFIX=/usr/local/ta-lib && \
@@ -112,8 +112,8 @@ WORKDIR ${JUPYTER_SERVER_ROOT}
 CMD ["jupyter-lab", "--no-browser", "--ip=0.0.0.0"]
 ENTRYPOINT ["/entrypoint.sh"]
 
-LABEL org.opencontainers.image.source=https://github.com/gnzsnz/jupyter-quant
-LABEL org.opencontainers.image.url=https://github.com/gnzsnz/jupyter-quant/pkgs/container/jupyter-quant
+LABEL org.opencontainers.image.source=https://github.com/quantbelt/jupyter-quant
+LABEL org.opencontainers.image.url=https://github.com/quantbelt/jupyter-quant/pkgs/container/jupyter-quant
 LABEL org.opencontainers.image.description="A dockerized Jupyter quant research enviroment. "
 LABEL org.opencontainers.image.licenses="Apache License Version 2.0"
 LABEL org.opencontainers.image.version=${IMAGE_VERSION}
