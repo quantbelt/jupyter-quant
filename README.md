@@ -11,7 +11,7 @@ A dockerized Jupyter quant research environment.
 - [ib_async](https://github.com/ib-api-reloaded/ib_async) for Interactive Broker
   connectivity. Works well with
   [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
-  [ib_insync](https://github.com/erdewit/ib_insync/) has been of invaluable all
+  [ib_insync](https://github.com/erdewit/ib_insync/) has been invaluable all
   this time, RIP Ewald.
 - Includes all major Python packages for statistical and time series analysis,
   see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt).
@@ -20,21 +20,22 @@ A dockerized Jupyter quant research environment.
 - [Zipline-reloaded](https://github.com/stefan-jansen/zipline-reloaded/),
   [pyfolio-reloaded](https://github.com/stefan-jansen/pyfolio-reloaded)
   and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
+- [ib_fundamental](https://github.com/quantbelt/ib_fundamental) for IBKR
+  fundamental data.
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers)
   containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
 - Includes jedi language server, jupyterlab-lsp, black and isort.
 - It does NOT include conda/mamba. All packages are installed with pip under
   `~/.local/lib/python`. Which should be mounted in a dedicated volume to
-  preserver your environment.
+  preserve your environment.
 - Includes Cython, Numba, bottleneck and numexpr to speed up things
 - sudo, so you can install new packages if needed.
-- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your own dot
-  files). Plus common command line utilities like git, less, nano (tiny), jq,
+- bash and stow, so you can [BYODF](#install-your-dotfiles) (bring your
+  dotfiles). Plus common command line utilities like git, less, nano (tiny), jq,
   [ssh](#install-your-ssh-keys), curl, bash completion and others.
 - Support for [apt cache](https://github.com/gnzsnz/apt-cacher-ng). If you have
-  other Linux boxes using it can leverage your cache. apt cache supports major
-  Linux distributions not only Debian/Ubuntu.
+  other Linux boxes using it can leverage your package cache.
 - It does not include a built environment. If you need to install a package
   that does not provide wheels you can build your wheels, as explained
   in [common tasks](#build-wheels-outside-the-container)
@@ -78,17 +79,17 @@ docker compose up
 
 The image is designed to work with 3 volumes:
 
-1. `quant_data` - volume for ~/.local folder. It contains caches and all
-   python packages. This enables to add additional packages through pip.
+1. `quant_data` - volume for ~/.local folder. It contains caches and all Python
+   packages. This enables to install additional packages through pip.
 2. `quant_conf` - volume for ~/.config, all config goes here. This includes
    jupyter, ipython, matplotlib, etc
 3. Bind mount (but you could use a named volume) - volume for all notebooks,
    under `~/Notebooks`.
 
 This allows to have ephemeral containers and to keep your notebooks (3), your
-config (2) and your additional packages (1). Eventually you would need to
-update the image, in this case your notebooks (3) can move without issues,
-your config (2) should still work but no warranty, and your packages in
+config (2) and your additional packages (1). Eventually, you would need to
+update the image, in this case, your notebooks (3) can move without issues,
+your config (2) should still work but no warranty and your packages in
 `quant_data` could still be used but you should refresh it with a new image.
 Eventually, you would need to refresh (1) and less frequently (2)
 
