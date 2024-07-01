@@ -44,7 +44,7 @@ sdepy==1.2.0
 seaborn==0.13.2
 shap==0.46.0
 statsmodels==0.14.2
-TA-Lib==0.4.31
+TA-Lib==0.4.32
 tzdata==2024.1
 yellowbrick==1.5
 yfinance==0.2.40
