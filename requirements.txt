@@ -21,7 +21,7 @@ jupyterlab-lsp==5.1.0
 jupyterlab_code_formatter==2.2.1
 jupyterlab_widgets==3.0.11
 lightgbm==4.4.0
-matplotlib==3.9.0
+matplotlib==3.9.1
 numba==0.60.0
 numexpr==2.10.1
 numpy==1.26.4
