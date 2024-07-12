@@ -10,7 +10,7 @@ exchange_calendars==4.5.5
 formulae==0.5.3
 graphviz==0.20.3
 hurst==0.0.5
-ib-fundamental==0.0.2
+ib-fundamental==0.0.3
 ib_insync==0.9.86
 ipympl==0.9.4
 ipywidgets==8.1.3
