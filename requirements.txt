@@ -30,7 +30,7 @@ pandas==2.2.2
 pip==24.1.2
 py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
-pyarrow==16.1.0
+pyarrow==17.0.0
 pyfolio-reloaded==0.9.7
 pykalman==0.9.7
 pymc==5.16.2
