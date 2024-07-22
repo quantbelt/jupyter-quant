@@ -5,7 +5,7 @@ bambi==0.14.0
 bcolz-zipline @ git+https://github.com/stefan-jansen/bcolz-zipline.git@main
 black==24.4.2
 bottleneck==1.4.0
-dask[dataframe,distributed]==2024.7.0
+dask[dataframe,distributed]==2024.7.1
 exchange_calendars==4.5.5
 formulae==0.5.3
 graphviz==0.20.3
