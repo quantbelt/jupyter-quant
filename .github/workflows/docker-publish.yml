@@ -1,0 +1,74 @@
+name: Docker Image Publishing
+
+on:
+  release:
+    types: [published]
+
+env:
+  IMAGE_NAME: gnzsnz/jupyter-quant
+  GH_IMAGE_NAME: ghcr.io/quantbelt/jupyter-quant
+  PLATFORMS: linux/amd64,linux/arm64
+
+jobs:
+  publish:
+    name: Build and test Jupyter Quant
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get enviroment variables
+        run: |
+          grep -v '#' .env-dist | grep '=' > .env
+          while IFS= read -r line; do
+            echo $line >> $GITHUB_ENV ;
+          done < .env
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: ${{ env.PLATFORMS }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+            ${{ env.GH_IMAGE_NAME }}
+          flavor: |
+            latest=true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            USER=${{ env.USER }}
+            USER_ID=${{ env.USER_ID }}
+            USER_GID=${{ env.USER_GID }}
+            IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
+          platforms: ${{ env.PLATFORMS }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
