@@ -13,7 +13,7 @@ hurst==0.0.5
 ib-fundamental==0.0.3
 ib_async==1.0.3
 ipympl==0.9.4
-ipywidgets==8.1.3
+ipywidgets==8.1.4
 isort==5.13.2
 jedi-language-server==0.41.4
 jupyterlab==4.2.4
