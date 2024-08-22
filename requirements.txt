@@ -19,7 +19,7 @@ jedi-language-server==0.41.4
 jupyterlab==4.2.4
 jupyterlab-lsp==5.1.0
 jupyterlab_code_formatter==3.0.2
-jupyterlab_widgets==3.0.11
+jupyterlab_widgets==3.0.12
 lightgbm==4.5.0
 matplotlib==3.9.2
 numba==0.60.0
