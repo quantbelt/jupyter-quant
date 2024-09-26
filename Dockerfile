@@ -3,11 +3,15 @@
 ###############################################################################
 # hadolint global ignore=DL3003,DL3008,SC2028
 ARG IMG_PYTHON_VERSION
-FROM python:"${IMG_PYTHON_VERSION}" AS builder
+FROM python:$IMG_PYTHON_VERSION AS builder
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
+ARG GH_URL_BASE=https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux
+ARG TALIB_FILE=ta-lib-0.4.0-linux_
+ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
 
-COPY requirements.txt /.
+COPY README.md LICENSE.txt pyproject.toml /
+COPY jupyter_quant/__init__.py /jupyter_quant/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN if [ -n "$APT_PROXY" ]; then \
@@ -22,30 +26,30 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
-  curl -LO https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
-  curl -LO https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux/ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
-  sha256sum -c ta-lib-0.4.0-linux_"$(uname -m)".tgz.sha256 && \
-  cd / && tar xzf /tmp/ta-lib-0.4.0-linux_"$(uname -m)".tgz && \
+  curl -LO "${TALIB_URL}$(uname -m).tgz" && \
+  curl -LO "${TALIB_URL}$(uname -m).tgz.sha256" && \
+  sha256sum -c "${TALIB_FILE}$(uname -m).tgz.sha256" && \
+  cd / && tar xzf "/tmp/${TALIB_FILE}$(uname -m).tgz" && \
   export PREFIX=/usr/local/ta-lib && \
   export TA_LIBRARY_PATH="$PREFIX/lib" && \
   export TA_INCLUDE_PATH="$PREFIX/include" && \
   # end TA-Lib
-  pip wheel --no-cache-dir --wheel-dir /wheels -r /requirements.txt
+  pip wheel --no-cache-dir --wheel-dir /wheels .
 
 ###############################################################################
 # Final stage
 ###############################################################################
 ARG IMG_PYTHON_VERSION
-FROM python:"${IMG_PYTHON_VERSION}"-slim
+FROM python:${IMG_PYTHON_VERSION}-slim
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
 ENV USER="${USER:-gordon}"
 ARG USER_ID="${USER_ID:-1000}"
 ARG USER_GID="${USER_GID:-1000}"
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV PIP_USER true
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_USER=true
 ENV PATH="$PATH:/home/$USER/.local/bin"
 
 # base data directory
@@ -100,11 +104,10 @@ USER $USER_ID:$USER_GID
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
-  pip install --user --no-cache-dir /wheels/* && \
+  pip install --user --no-deps --compile --no-cache-dir /wheels/* && \
   # Import matplotlib the first time to build the font cache.
   MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
-  mkdir "${JUPYTER_SERVER_ROOT}" && \
-  python -c "import compileall; compileall.compile_dir('${BASE_DATA}/lib/python$(echo "$PYTHON_VERSION" | cut -d '.' -f1,2)/site-packages', force=True)"
+  mkdir "${JUPYTER_SERVER_ROOT}"
 
 COPY entrypoint.sh /
 WORKDIR ${JUPYTER_SERVER_ROOT}

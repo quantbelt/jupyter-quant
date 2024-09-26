@@ -8,14 +8,15 @@ updates:
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
-
+        interval: "daily"
+        time: "04:00"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-
+        interval: "daily"
+        time: "04:10"
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+        interval: "daily"
+        time: "04:20"
