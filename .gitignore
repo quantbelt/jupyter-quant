@@ -5,3 +5,7 @@ docker-compose.yml
 .ipynb_checkpoints/
 .virtual_documents/
 .DS_Store
+*.egg-info
+wheels/
+build/
+dist/
