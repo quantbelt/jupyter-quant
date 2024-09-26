@@ -74,7 +74,7 @@ bayes = [
     "formulae==0.5.4",
     "graphviz==0.20.3",
 ]
-dev = ["pre-commit>=3.7.1", "build", "wheel"]
+dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
 
 [project.urls]
 "Homepage" = "https://github.com/quantbelt/jupyter-quant"
