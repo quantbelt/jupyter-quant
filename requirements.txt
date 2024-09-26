@@ -31,7 +31,7 @@ pip==24.2
 py_vollib==1.0.1
 py_vollib_vectorized==0.1.1
 pyarrow==17.0.0
-pyfolio-reloaded==0.9.7
+pyfolio-reloaded==0.9.8
 pykalman==0.9.7
 pymc==5.16.2
 PyPortfolioOpt==1.5.5
