@@ -1,0 +1,142 @@
+name: Check docker image
+
+on:
+  schedule:
+    - cron:  '20 4 * * *' # every day at 420 am
+  workflow_dispatch:
+
+env:
+    IMAGE_NAME: gnzsnz/jupyter-quant
+    GH_IMAGE_NAME: ghcr.io/quantbelt/jupyter-quant
+    BASE_IMAGE: python
+    PLATFORMS: linux/amd64,linux/arm64
+
+jobs:
+    check_base:
+        runs-on: ubuntu-latest
+        outputs:
+          needs-updating: ${{ steps.check.outputs.needs-updating }}
+        steps:
+
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Get enviroment variables
+            run: |
+              grep -v '#' .env-dist | grep '=' > .env
+              while IFS= read -r line; do
+                  echo $line >> $GITHUB_ENV ;
+              done < .env
+
+          - name: Check if update available
+            id: check
+            uses: lucacome/docker-image-update-checker@v1
+            with:
+              base-image: ${{ env.BASE_IMAGE }}:${{ env.IMG_PYTHON_VERSION }}-slim
+              image: ${{ env.IMAGE_NAME}}:${{ env.IMAGE_VERSION }}
+              platforms: ${{ env.PLATFORMS }}
+
+          - name: Set up QEMU
+            uses: docker/setup-qemu-action@v3
+            with:
+              platforms: ${{ env.PLATFORMS }}
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v3
+
+          - name: Docker metadata
+            id: meta
+            uses: docker/metadata-action@v5
+            with:
+              images: |
+                ${{ env.IMAGE_NAME }}
+                ${{ env.GH_IMAGE_NAME }}
+              flavor: |
+                latest=true
+
+          - name: Build Docker image
+            uses: docker/build-push-action@v6
+            with:
+              push: false
+              load: false
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+              context: .
+              build-args: |
+                  USER=${{ env.USER }}
+                  USER_ID=${{ env.USER_ID }}
+                  USER_GID=${{ env.USER_GID }}
+                  IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
+              tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+              labels: ${{ steps.meta.outputs.labels }}
+
+    build:
+        runs-on: ubuntu-latest
+        needs: check_base
+        if: needs.check_base.outputs.needs-updating == 'true'
+        steps:
+
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Get enviroment variables
+            run: |
+              grep -v '#' .env-dist | grep '=' > .env
+              while IFS= read -r line; do
+                  echo $line >> $GITHUB_ENV ;
+              done < .env
+
+          - name: Create issue
+            id: create_issue
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              title="Base images updates found for ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}"
+              body="A new build&publish might be needed."
+
+              exists=$(gh issue list -S "is:issue state:open in:title $title" | wc -l)
+
+              if [ -n "$exists" ] && [ "$exists" -gt 0 ]; then
+                echo "dup_issue=yes" >> $GITHUB_OUTPUT
+              else
+                gh issue create -t "$title" -b "$body"
+                echo "dup_issue=no" >> $GITHUB_OUTPUT
+              fi
+
+          - name: Set up QEMU
+            uses: docker/setup-qemu-action@v3
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
+            with:
+              platforms: ${{ env.PLATFORMS }}
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v3
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
+
+          - name: Docker metadata
+            id: meta
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
+            uses: docker/metadata-action@v5
+            with:
+              images: |
+                ${{ env.IMAGE_NAME }}
+                ${{ env.GH_IMAGE_NAME }}
+              flavor: |
+                latest=true
+
+          - name: Build Docker image
+            uses: docker/build-push-action@v6
+            if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
+            with:
+              push: false
+              load: false
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+              context: .
+              build-args: |
+                  USER=${{ env.USER }}
+                  USER_ID=${{ env.USER_ID }}
+                  USER_GID=${{ env.USER_GID }}
+                  IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
+              tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+              labels: ${{ steps.meta.outputs.labels }}
