@@ -206,7 +206,7 @@ a commented line with `START_SCRIPTS=/home/gordon/Notebooks/etc/start_scripts`
 as an example and recommended location.
 
 Files should have a `.sh` suffix and should run under `bash`. On you will find
-scripts to load ssh keys and install python packages in directory
+example scripts to load ssh keys and install python packages in directory
 [start_scripts](https://github.com/quantbelt/jupyter-quant/tree/master/start_scripts).
 
 ### Install jupyter-quant package
@@ -215,4 +215,12 @@ Jupyter-quant is available as a package in pypi.
 
 ```bash
 pip install -U jupyter-quant
+```
+
+Additional options supported are
+
+```bash
+pip install -U jupyter-quant[bayes] # to install pymc & arviz/graphviz
+
+pip install -U jupyter-quant[sk-util] # to install skfolio & sktime
 ```
