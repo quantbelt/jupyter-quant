@@ -17,6 +17,9 @@ services:
       APT_PROXY: ${APT_PROXY}
       BYODF: ${BYODF:-}
       SSH_KEYDIR: ${SSH_KEYDIR:-}
+      # START_SCRIPTS: ${START_SCRIPTS:-}
+      # SSH_PASSPHRASE: ${SSH_PASSPHRASE:-}
+      # SSH_PASSPHRASE_FILE: ${SSH_PASSPHRASE_FILE:-}
       TZ: ${QUANT_TZ:-}
     restart: unless-stopped
     ports:
@@ -25,7 +28,13 @@ services:
       - quant_conf:/home/gordon/.config
       - quant_data:/home/gordon/.local
       - ${PWD}/Notebooks:/home/gordon/Notebooks
+    # secrets:
+    #   - ssh_passphrase
 
 volumes:
   quant_conf:
   quant_data:
+
+# secrets:
+#   ssh_passphrase:
+#     file: pass/ssh_password.txt
