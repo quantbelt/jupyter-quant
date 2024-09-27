@@ -45,6 +45,20 @@ if [ ! -L "${JUPYTER_SERVER_ROOT}"/.lsp_symlink ]; then
 	ln -s / .lsp_symlink
 fi
 
+start_scripts() {
+	if [ ! -d "$START_SCRIPTS" ]; then
+		echo "> No start scripts defined."
+		return 0
+	fi
+	echo "> Running start up scripts."
+
+	for f in "${START_SCRIPTS}"/*.sh; do
+		echo "> Running $f"
+		bash "$f"
+	done
+
+}
+
 stop() {
 	echo "> 😘 Received SIGINT or SIGTERM. Shutting down $DAEMON"
 	# Get PID
@@ -67,6 +81,7 @@ if [ "$(basename "$1" 2>/dev/null)" == "$DAEMON" ]; then
 
 	echo "> Starting $* $JUPYTER_OPT"
 	trap stop SIGINT SIGTERM
+	start_scripts
 	"$@" "${JUPYTER_OPT}" &
 	pid="$!"
 	echo $pid >/tmp/$DAEMON.pid
@@ -78,6 +93,7 @@ elif echo "$*" | grep ^--; then
 	# accept parameters from command line or compose
 	echo "> Starting $* $JUPYTER_OPT"
 	trap stop SIGINT SIGTERM
+	start_scripts
 	jupyter-lab --no-browser --ip=0.0.0.0 "${JUPYTER_OPT}" "$@" &
 	pid="$!"
 	echo "$pid" >/tmp/"$DAEMON".pid
