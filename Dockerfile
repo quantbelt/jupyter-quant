@@ -89,7 +89,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
     ;fi && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-    openssh-client sudo curl graphviz git tzdata unzip less xclip nano-tiny \
+    openssh-client sshpass sudo curl graphviz git tzdata unzip less xclip nano-tiny \
     ffmpeg pandoc stow jq bash-completion procps && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
@@ -114,6 +114,8 @@ WORKDIR ${JUPYTER_SERVER_ROOT}
 
 CMD ["jupyter-lab", "--no-browser", "--ip=0.0.0.0"]
 ENTRYPOINT ["/entrypoint.sh"]
+
+EXPOSE 8888
 
 LABEL org.opencontainers.image.source=https://github.com/quantbelt/jupyter-quant
 LABEL org.opencontainers.image.url=https://github.com/quantbelt/jupyter-quant/pkgs/container/jupyter-quant
