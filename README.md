@@ -1,6 +1,7 @@
 # Jupyter Quant
 
-A dockerized Jupyter quant research environment.
+A dockerized Jupyter quant research environment. It can be used as a pypi
+package too.
 
 ## Highlights
 
@@ -22,6 +23,7 @@ A dockerized Jupyter quant research environment.
   and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
 - [ib_fundamental](https://github.com/quantbelt/ib_fundamental) for IBKR
   fundamental data.
+- You can install it as a python package, just `pip install -U jupyter-quant`
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers)
   containers. Relevant data for your environment will survive your container.
 - Optimized for size, it's a 2GB image vs 4GB for jupyter/scipy-notebook
@@ -52,6 +54,7 @@ services:
       APT_PROXY: ${APT_PROXY:-}
       BYODF: ${BYODF:-}
       SSH_KEYDIR: ${SSH_KEYDIR:-}
+      START_SCRIPTS: ${START_SCRIPTS:-}
       TZ: ${QUANT_TZ:-}
     restart: unless-stopped
     ports:
@@ -193,4 +196,23 @@ eval $(ssh-agent)
 ssh-add
 # open a tunnel
 ssh -fNL 4001:localhost:4001 gordon@bastion-ssh
+```
+
+### Run scripts at start up
+
+If you define `START_SCRIPTS` env variable with a path, all scripts on that
+directory will be executed at start up. The sample `.env-dist` file contains
+a commented line with `START_SCRIPTS=/home/gordon/Notebooks/etc/start_scripts`
+as an example and recommended location.
+
+Files should have a `.sh` suffix and should run under `bash`. On you will find
+scripts to load ssh keys and install python packages in directory
+[start_scripts](https://github.com/quantbelt/jupyter-quant/tree/master/start_scripts).
+
+### Install jupyter-quant package
+
+Jupyter-quant is available as a package in pypi.
+
+```bash
+pip install -U jupyter-quant
 ```
