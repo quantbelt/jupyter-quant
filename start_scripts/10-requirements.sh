@@ -10,5 +10,5 @@
 ###############################################################################
 
 if [ -f "$JUPYTER_SERVER_ROOT"/requirements.txt ]; then
-	pip install -U "$JUPYTER_SERVER_ROOT"/requirements.txt
+	pip install -U -r "$JUPYTER_SERVER_ROOT"/requirements.txt
 fi
