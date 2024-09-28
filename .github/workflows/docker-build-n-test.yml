@@ -1,0 +1,91 @@
+name: Build 🛠️ and test 🧪 jupyter-quant Docker Image and pypi package 📦
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  IMAGE_NAME: gnzsnz/jupyter-quant
+  GH_IMAGE_NAME: ghcr.io/quantbelt/jupyter-quant
+  PLATFORMS: linux/amd64,linux/arm64
+  PACKAGE_NAME: jupyter-quant
+
+jobs:
+  py_build:
+
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            python-version: ['3.11', '3.12']
+
+    steps:
+        - uses: actions/checkout@v4
+        - name: Set up Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v5
+          with:
+              python-version: ${{ matrix.python-version }}
+              cache: pip
+      # You can test your matrix by printing the current Python version
+        - name: Display Python version
+          run: python -c "import sys; print(sys.version)"
+        - name: Install dependencies
+          run: |
+              python -m pip install --user -U build pip setuptools wheel
+        - name: Build a binary wheel and a source tarball
+          run: python3 -m build
+
+  docker_buildntest:
+    name: Build and test
+
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get enviroment variables
+        run: |
+          grep -v '#' .env-dist | grep '=' > .env
+          while IFS= read -r line; do
+            echo $line >> $GITHUB_ENV ;
+          done < .env
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: ${{ env.PLATFORMS }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+            ${{ env.GH_IMAGE_NAME }}
+          flavor: |
+            latest=true
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          load: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          context: .
+          platforms: ${{ env.PLATFORMS }}
+          build-args: |
+            USER=${{ env.USER }}
+            USER_ID=${{ env.USER_ID }}
+            USER_GID=${{ env.USER_GID }}
+            IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
