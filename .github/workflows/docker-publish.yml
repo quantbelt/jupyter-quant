@@ -46,6 +46,7 @@ jobs:
             ${{ env.IMAGE_NAME }}
             ${{ env.GH_IMAGE_NAME }}
           flavor: |
+            type=semver,pattern={{version}}
             latest=true
 
       - name: Login to Docker Hub

@@ -1,10 +1,10 @@
 # Jupyter Quant
 
-A dockerized Jupyter quant research environment. It can be used as a pypi
-package too.
+A dockerized Jupyter quant research environment.
 
 ## Highlights
 
+- It can be used as a docker image or pypi package.
 - Includes tools for quant analysis, statsmodels, pymc, arch, py_vollib,
   zipline-reloaded, PyPortfolioOpt, etc.
 - The usual suspects are included, numpy, pandas, sci-py, scikit-learn,
@@ -43,6 +43,9 @@ package too.
   in [common tasks](#build-wheels-outside-the-container)
 
 ## Quick Start
+
+To use `jupyter-quant` as a [pypi package](https://pypi.org/project/jupyter-quant/)
+see [install quant package](#install-jupyter-quant-package).
 
 Create a `docker-compose.yml` file with this content
 
@@ -211,7 +214,23 @@ example scripts to load ssh keys and install python packages in directory
 
 ### Install jupyter-quant package
 
-Jupyter-quant is available as a package in pypi.
+Jupyter-quant is available as a package in [pypi](https://pypi.org/project/jupyter-quant/).
+It's a meta-package that pulls all dependencies in it's highest possible version.
+
+Dependencies:
+
+- hdf5 (see below)
+- TA-lib see [instructions](https://pypi.org/project/TA-Lib/)
+
+```bash
+# ubuntu/debian, see install instructions above for TA-lib
+sudo apt-get install libhdf5-dev
+
+# osx
+brew install hdf5 ta-lib
+```
+
+Install [pypi package](https://pypi.org/project/jupyter-quant/).
 
 ```bash
 pip install -U jupyter-quant
@@ -223,4 +242,14 @@ Additional options supported are
 pip install -U jupyter-quant[bayes] # to install pymc & arviz/graphviz
 
 pip install -U jupyter-quant[sk-util] # to install skfolio & sktime
+```
+
+`jupyter-quant` it's a meta-package that pins all it's dependencies versions.
+If you need/want to upgrade a dependency you can uninstall `jupyter-quant`,
+although this can break interdependencies. Or install from git, where it's
+updated regularly.
+
+```bash
+# git install
+pip install -U git+https://github.com/quantbelt/jupyter-quant.git
 ```

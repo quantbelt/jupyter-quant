@@ -2,7 +2,7 @@
 # Builder stage
 ###############################################################################
 # hadolint global ignore=DL3003,DL3008,SC2028
-ARG IMG_PYTHON_VERSION
+ARG IMG_PYTHON_VERSION=$IMG_PYTHON_VERSION
 FROM python:$IMG_PYTHON_VERSION AS builder
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
@@ -21,8 +21,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  libatlas-base-dev gfortran msttcorefonts pkg-config \
-  libfreetype6-dev libhdf5-dev cmake && \
+  libatlas-base-dev msttcorefonts pkg-config libfreetype6-dev libhdf5-dev cmake && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
@@ -34,12 +33,14 @@ RUN if [ -n "$APT_PROXY" ]; then \
   export TA_LIBRARY_PATH="$PREFIX/lib" && \
   export TA_INCLUDE_PATH="$PREFIX/include" && \
   # end TA-Lib
-  pip wheel --no-cache-dir --wheel-dir /wheels .
+  pip wheel --no-cache-dir --wheel-dir /wheels . && \
+  rm /wheels/jupyter_quant-*.whl
+
 
 ###############################################################################
 # Final stage
 ###############################################################################
-ARG IMG_PYTHON_VERSION
+ARG IMG_PYTHON_VERSION=$IMG_PYTHON_VERSION
 FROM python:${IMG_PYTHON_VERSION}-slim
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
