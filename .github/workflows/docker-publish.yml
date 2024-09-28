@@ -46,7 +46,6 @@ jobs:
             ${{ env.IMAGE_NAME }}
             ${{ env.GH_IMAGE_NAME }}
           flavor: |
-            type=semver,pattern={{version}}
             type=semver,pattern={{version}},value=${{ env.IMG_PYTHON_VERSION}}
             latest=true
 
