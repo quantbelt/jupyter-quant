@@ -48,7 +48,7 @@ jobs:
           flavor: |
             latest=true
           tags: |
-            type=match,pattern=\d.\d
+            type=raw,value=${{ env.IMAGE_VERSION }}
 
 
       - name: Login to Docker Hub
