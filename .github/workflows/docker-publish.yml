@@ -46,8 +46,10 @@ jobs:
             ${{ env.IMAGE_NAME }}
             ${{ env.GH_IMAGE_NAME }}
           flavor: |
-            type=match,pattern=\d.\d
             latest=true
+          tags: |
+            type=match,pattern=\d.\d
+
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
