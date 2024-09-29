@@ -208,9 +208,9 @@ directory will be executed at start up. The sample `.env-dist` file contains
 a commented line with `START_SCRIPTS=/home/gordon/Notebooks/etc/start_scripts`
 as an example and recommended location.
 
-Files should have a `.sh` suffix and should run under `bash`. On you will find
-example scripts to load ssh keys and install python packages in directory
-[start_scripts](https://github.com/quantbelt/jupyter-quant/tree/master/start_scripts).
+Files should have a `.sh` suffix and should run under `bash`. in directory
+[start_scripts](https://github.com/quantbelt/jupyter-quant/tree/master/start_scripts)
+you will find example scripts to load ssh keys and install python packages.
 
 ### Install jupyter-quant package
 
