@@ -20,7 +20,7 @@ dependencies = [
     "alphalens-reloaded==0.4.5",
     "arch==7.1.0",
     "black==24.10.0",
-    "bottleneck==1.4.0",
+    "bottleneck==1.4.1",
     "dask[dataframe,distributed]==2024.9.1",
     "empyrical-reloaded==0.5.11",
     "exchange_calendars==4.5.6",
