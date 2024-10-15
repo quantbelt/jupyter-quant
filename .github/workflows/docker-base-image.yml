@@ -30,7 +30,7 @@ jobs:
 
           - name: Check if update available
             id: check
-            uses: lucacome/docker-image-update-checker@v1
+            uses: lucacome/docker-image-update-checker@v2
             with:
               base-image: ${{ env.BASE_IMAGE }}:${{ env.IMG_PYTHON_VERSION }}-slim
               image: ${{ env.IMAGE_NAME}}:${{ env.IMAGE_VERSION }}
