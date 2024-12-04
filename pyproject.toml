@@ -21,7 +21,7 @@ dependencies = [
     "arch==7.2.0",
     "black==24.10.0",
     "bottleneck==1.4.2",
-    "dask[dataframe,distributed]==2024.11.2",
+    "dask[dataframe,distributed]==2024.12.0",
     "empyrical-reloaded==0.5.11",
     "exchange_calendars==4.6",
     "h5py==3.12.1",
