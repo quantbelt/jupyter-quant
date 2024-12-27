@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupyter-quant"
+dynamic = ["version"]
+authors = [{ name = "gnzsnz" }]
+description = "Jupyter quant research environment. "
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE.txt" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+]
+dependencies = [
+    "alphalens-reloaded==0.4.5",
+    "arch==7.2.0",
+    "black==24.10.0",
+    "bottleneck==1.4.2",
+    "dask[dataframe,distributed]==2024.12.1",
+    "empyrical-reloaded==0.5.11",
+    "exchange_calendars==4.6",
+    "h5py==3.12.1",
+    "hurst==0.0.5",
+    "ib-fundamental==0.0.5",
+    "ib_async==1.0.3",
+    "ipympl==0.9.5",
+    "ipywidgets==8.1.5",
+    "isort==5.13.2",
+    "jedi-language-server==0.42.0",
+    "jupyterlab==4.3.4",
+    "jupyterlab-lsp==5.1.0",
+    "jupyterlab_code_formatter==3.0.2",
+    "jupyterlab_widgets==3.0.13",
+    "lightgbm==4.5.0",
+    "matplotlib==3.10.0",
+    "numba==0.60.0",
+    "numexpr==2.10.2",
+    "numpy==1.26.4",
+    "optuna==4.1.0",
+    "pandas==2.2.3",
+    "patsy==1.0.1",
+    "pip==24.3.1",
+    "py_vollib==1.0.1",
+    "py_vollib_vectorized==0.1.1",
+    "pyarrow==18.1.0",
+    "pyfolio-reloaded==0.9.8",
+    "pykalman==0.9.7",
+    "PyPortfolioOpt==1.5.6",
+    "quantstats-lumi==0.3.3",
+    "scikit-learn==1.6.0",
+    "scipy==1.14.1",
+    "sdepy==1.2.0",
+    "seaborn==0.13.2",
+    "shap==0.46.0",
+    "statsmodels==0.14.4",
+    "TA-Lib==0.5.2",
+    "tzdata==2024.2",
+    "yellowbrick==1.5",
+    "yfinance==0.2.51",
+    "zipline-reloaded==3.1",
+]
+
+[project.optional-dependencies]
+sk-util = ["skfolio==0.6.0", "sktime==0.35.0"]
+bayes = [
+    "arviz==0.20.0",
+    "bambi==0.14.0",
+    "pymc==5.19.1",
+    "formulae==0.5.4",
+    "graphviz==0.20.3",
+]
+dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
+
+[project.urls]
+"Homepage" = "https://github.com/quantbelt/jupyter-quant"
+"Bug Tracker" = "https://github.com/quantbelt/jupyter-quant/issues"
+
+[tool.setuptools]
+packages = ["jupyter_quant"]
+
+[tool.setuptools.dynamic]
+version = {attr = "jupyter_quant.__version__"}
