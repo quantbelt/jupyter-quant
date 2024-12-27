@@ -6,8 +6,9 @@ ARG IMG_PYTHON_VERSION=$IMG_PYTHON_VERSION
 FROM python:$IMG_PYTHON_VERSION AS builder
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
-ARG GH_URL_BASE=https://github.com/quantbelt/jupyter-quant/releases/download/ta-lib-0.4.0-linux
-ARG TALIB_FILE=ta-lib-0.4.0-linux_
+ARG TALIB_VERSION=ta-lib-0.6.2-linux
+ARG GH_URL_BASE=https://github.com/quantbelt/jupyter-quant/releases/download/${TALIB_VERSION}
+ARG TALIB_FILE="${TALIB_VERSION}_"
 ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
 
 COPY README.md LICENSE.txt pyproject.toml /

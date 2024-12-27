@@ -10,3 +10,4 @@ wheels/
 build/
 dist/
 pass/
+.vscode/
