@@ -19,7 +19,7 @@ classifiers = [
 dependencies = [
     "alphalens-reloaded==0.4.5",
     "arch==7.2.0",
-    "black==24.10.0",
+    "black==25.1.0",
     "bottleneck==1.4.2",
     "dask[dataframe,distributed]==2025.1.0",
     "empyrical-reloaded==0.5.11",
