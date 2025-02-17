@@ -12,6 +12,7 @@ services:
         USER_GID: ${USER_GID}
         IMG_PYTHON_VERSION: ${IMG_PYTHON_VERSION}
         APT_PROXY: ${APT_PROXY}
+        IMAGE_VERSION: ${IMAGE_VERSION}
     image: gnzsnz/jupyter-quant:${IMAGE_VERSION}
     environment:
       APT_PROXY: ${APT_PROXY}
