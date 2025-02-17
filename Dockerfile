@@ -2,11 +2,11 @@
 # Builder stage
 ###############################################################################
 # hadolint global ignore=DL3003,DL3008,SC2028
-ARG IMG_PYTHON_VERSION=$IMG_PYTHON_VERSION
+ARG IMG_PYTHON_VERSION=3.12
 FROM python:$IMG_PYTHON_VERSION AS builder
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
-ARG TALIB_VERSION=ta-lib-0.6.2-linux
+ARG TALIB_VERSION=ta-lib-0.4.0-linux
 ARG GH_URL_BASE=https://github.com/quantbelt/jupyter-quant/releases/download/${TALIB_VERSION}
 ARG TALIB_FILE="${TALIB_VERSION}_"
 ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
@@ -41,14 +41,15 @@ RUN if [ -n "$APT_PROXY" ]; then \
 ###############################################################################
 # Final stage
 ###############################################################################
-ARG IMG_PYTHON_VERSION=$IMG_PYTHON_VERSION
+ARG IMG_PYTHON_VERSION=3.12
 FROM python:${IMG_PYTHON_VERSION}-slim
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
-ENV USER="${USER:-gordon}"
+ENV USER=gordon
 ARG USER_ID="${USER_ID:-1000}"
 ARG USER_GID="${USER_GID:-1000}"
+ENV IMAGE_VERSION=2502.1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_USER=true
