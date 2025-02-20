@@ -24,7 +24,7 @@ dependencies = [
     "dask[dataframe,distributed]==2025.2.0",
     "empyrical-reloaded==0.5.11",
     "exchange_calendars==4.9",
-    "h5py==3.12.1",
+    "h5py==3.13.0",
     "hurst==0.0.5",
     "ib-fundamental==0.0.5",
     "ib_async==1.0.3",
