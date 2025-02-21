@@ -58,7 +58,7 @@ dependencies = [
     "seaborn==0.13.2",
     "shap==0.46.0",
     "statsmodels==0.14.4",
-    "TA-Lib==0.4.38",
+    "TA-Lib==0.6.3",
     "tzdata==2025.1",
     "yellowbrick==1.5",
     "yfinance==0.2.54",
