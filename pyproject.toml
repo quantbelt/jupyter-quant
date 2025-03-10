@@ -70,7 +70,7 @@ sk-util = ["skfolio==0.7.0", "sktime==0.36.0"]
 bayes = [
     "arviz==0.21.0",
     "bambi==0.14.0",
-    "pymc==5.21.0",
+    "pymc==5.21.1",
     "formulae==0.5.4",
     "graphviz==0.20.3",
 ]
