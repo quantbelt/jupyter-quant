@@ -94,7 +94,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     openssh-client sshpass sudo curl graphviz git tzdata unzip less xclip nano-tiny \
     ffmpeg pandoc stow jq bash-completion procps fonts-jetbrains-mono \
-    fonts-dejavu-mono fonts-firacode && \
+    fonts-dejavu-core fonts-firacode && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
     rm "${APT_PROXY_FILE}" \
