@@ -61,7 +61,7 @@ dependencies = [
     "TA-Lib==0.4.38",
     "tzdata==2025.1",
     "yellowbrick==1.5",
-    "yfinance==0.2.54",
+    "yfinance==0.2.55",
     "zipline-reloaded==3.1",
 ]
 
