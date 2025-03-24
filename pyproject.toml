@@ -66,7 +66,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-sk-util = ["skfolio==0.7.0", "sktime==0.36.0"]
+sk-util = ["skfolio==0.8.1", "sktime==0.36.0"]
 bayes = [
     "arviz==0.21.0",
     "bambi==0.15.0",
