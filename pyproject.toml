@@ -21,9 +21,9 @@ dependencies = [
     "arch==7.2.0",
     "black==25.1.0",
     "bottleneck==1.4.2",
-    "dask[dataframe,distributed]==2025.2.0",
+    "dask[dataframe,distributed]==2025.3.0",
     "empyrical-reloaded==0.5.11",
-    "exchange_calendars==4.9",
+    "exchange_calendars==4.10",
     "h5py==3.13.0",
     "hurst==0.0.5",
     "ib-fundamental==0.0.5",
@@ -31,8 +31,8 @@ dependencies = [
     "ipympl==0.9.7",
     "ipywidgets==8.1.5",
     "isort==6.0.1",
-    "jedi-language-server==0.43.1",
-    "jupyterlab==4.3.5",
+    "jedi-language-server==0.44.0",
+    "jupyterlab==4.3.6",
     "jupyterlab-lsp==5.1.0",
     "jupyterlab_code_formatter==3.0.2",
     "jupyterlab_widgets==3.0.13",
@@ -56,21 +56,21 @@ dependencies = [
     "scipy==1.15.2",
     "sdepy==1.2.0",
     "seaborn==0.13.2",
-    "shap==0.47.0",
+    "shap==0.47.1",
     "statsmodels==0.14.4",
     "TA-Lib==0.6.3",
-    "tzdata==2025.1",
+    "tzdata==2025.2",
     "yellowbrick==1.5",
-    "yfinance==0.2.54",
+    "yfinance==0.2.55",
     "zipline-reloaded==3.1",
 ]
 
 [project.optional-dependencies]
-sk-util = ["skfolio==0.7.0", "sktime==0.36.0"]
+sk-util = ["skfolio==0.8.1", "sktime==0.36.0"]
 bayes = [
     "arviz==0.21.0",
-    "bambi==0.14.0",
-    "pymc==5.21.1",
+    "bambi==0.15.0",
+    "pymc==5.22.0",
     "formulae==0.5.4",
     "graphviz==0.20.3",
 ]
