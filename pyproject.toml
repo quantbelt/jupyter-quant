@@ -29,7 +29,7 @@ dependencies = [
     "ib-fundamental==0.0.5",
     "ib_async==1.0.3",
     "ipympl==0.9.7",
-    "ipywidgets==8.1.5",
+    "ipywidgets==8.1.6",
     "isort==6.0.1",
     "jedi-language-server==0.44.0",
     "jupyterlab==4.3.6",
