@@ -47,7 +47,7 @@ dependencies = [
     "pip==25.1",
     "py_vollib==1.0.1",
     "py_vollib_vectorized==0.1.1",
-    "pyarrow==19.0.1",
+    "pyarrow==20.0.0",
     "pyfolio-reloaded==0.9.8",
     "pykalman==0.10.1",
     "PyPortfolioOpt==1.5.6",
