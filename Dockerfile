@@ -5,10 +5,15 @@
 ARG IMG_PYTHON_VERSION=3.12
 FROM python:$IMG_PYTHON_VERSION AS builder
 
+# Use TARGETARCH build argument
+ARG TARGETARCH
+# Set environment variable for use in this stage
+ENV ARCH=$TARGETARCH
+
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
-ARG TALIB_VERSION=ta-lib-0.6.2-linux
-ARG GH_URL_BASE=https://github.com/quantbelt/jupyter-quant/releases/download/${TALIB_VERSION}
-ARG TALIB_FILE="${TALIB_VERSION}_"
+ARG TALIB_VERSION=0.6.4
+ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
+ARG TALIB_FILE="ta-lib_${TALIB_VERSION}_${ARCH}.deb"
 ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
 
 COPY README.md LICENSE.txt pyproject.toml /
@@ -26,13 +31,9 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
-  curl -LO "${TALIB_URL}$(uname -m).tgz" && \
-  curl -LO "${TALIB_URL}$(uname -m).tgz.sha256" && \
-  sha256sum -c "${TALIB_FILE}$(uname -m).tgz.sha256" && \
-  cd / && tar xzf "/tmp/${TALIB_FILE}$(uname -m).tgz" && \
-  export PREFIX=/usr/local/ta-lib && \
-  export TA_LIBRARY_PATH="$PREFIX/lib" && \
-  export TA_INCLUDE_PATH="$PREFIX/include" && \
+  TALIB_ARCH=$(dpkg-architecture -q DEB_BUILD_ARCH); export TALIB_ARCH && \
+  curl -LO "${TALIB_URL}" && \
+  cd / && dpkg -i  "/tmp/${TALIB_FILE}" && \
   # end TA-Lib
   pip wheel --no-cache-dir --wheel-dir /wheels . && \
   rm /wheels/jupyter_quant-*.whl
@@ -44,6 +45,11 @@ RUN if [ -n "$APT_PROXY" ]; then \
 ARG IMG_PYTHON_VERSION=3.12
 FROM python:${IMG_PYTHON_VERSION}-slim
 
+# Use TARGETARCH build argument
+ARG TARGETARCH
+# Set environment variable for use in this stage
+ENV ARCH=$TARGETARCH
+
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
 ENV USER=gordon
@@ -54,6 +60,12 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_USER=true
 ENV PATH="$PATH:/home/$USER/.local/bin"
+
+# ta-lib
+ARG TALIB_VERSION=0.6.4
+ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
+ARG TALIB_FILE="ta-lib_${TALIB_VERSION}_${ARCH}.deb"
+ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
 
 # base data directory
 ENV BASE_DATA="/home/${USER}/.local"
@@ -75,15 +87,11 @@ ENV JUPYTERLAB_WORKSPACES_DIR="${JUPYTER_CONFIG_DIR}/lab/workspaces"
 ENV JUPYTER_SERVER_ROOT="/home/${USER}/Notebooks"
 # matplotlib
 ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
-# ta-lib
-ENV TA_PREFIX=/usr/local/ta-lib
-ENV TA_LIBRARY_PATH=$TA_PREFIX/lib
-ENV TA_INCLUDE_PATH=$TA_PREFIX/include
 # shell
 ENV SHELL="/bin/bash"
 
 COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
-COPY --from=builder /usr/local/ta-lib/ /usr/local/ta-lib/
+COPY --from=builder /tmp/"$TALIB_FILE" /tmp/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN if [ -n "$APT_PROXY" ]; then \
@@ -94,7 +102,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     openssh-client sshpass sudo curl graphviz git tzdata unzip less xclip nano-tiny \
     ffmpeg pandoc stow jq bash-completion procps fonts-jetbrains-mono \
-    fonts-dejavu-core fonts-firacode && \
+    fonts-dejavu-core fonts-firacode pkg-config && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
     rm "${APT_PROXY_FILE}" \
@@ -102,6 +110,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   groupadd --gid "${USER_GID}" "${USER}" && \
   useradd -ms /bin/bash --uid "${USER_ID}" --gid "${USER_GID}" "${USER}" && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers && \
+  dpkg -i /tmp/"${TALIB_FILE}" && \
   python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
 USER $USER_ID:$USER_GID
