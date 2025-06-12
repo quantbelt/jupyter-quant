@@ -17,7 +17,7 @@ classifiers = [
     "Development Status :: 3 - Alpha",
 ]
 dependencies = [
-    "alphalens-reloaded==0.4.5",
+    "alphalens-reloaded==0.4.6",
     "arch==7.2.0",
     "black==25.1.0",
     "bottleneck==1.4.2",
