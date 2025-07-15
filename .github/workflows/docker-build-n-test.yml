@@ -47,7 +47,7 @@ jobs:
         - name: Build a binary wheel and a source tarball
           run: python3 -m build
         - name: install
-          run: python -m pip install .
+          run: python -m pip install .[bayes,sk-util]
         - uses: pypa/gh-action-pip-audit@v1.1.0
           with:
             inputs: "."
