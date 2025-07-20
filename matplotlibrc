@@ -2,4 +2,3 @@
 font.family      : sans-serif
 font.sans-serif  : Liberation Sans, DejaVu Sans
 font.monospace   : JetBrains Mono, Fira Code, DejaVu Sans Mono
-log_level        : ERROR

@@ -10,6 +10,8 @@ ARG TARGETARCH
 # Set environment variable for use in this stage
 ENV ARCH=$TARGETARCH
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 ARG TALIB_VERSION=0.6.4
 ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
@@ -24,14 +26,12 @@ RUN if [ -n "$APT_PROXY" ]; then \
       echo "Acquire::http { Proxy \"${APT_PROXY}\"; }"  \
       | tee "${APT_PROXY_FILE}" \
     ;fi && \
-  echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  libatlas-base-dev pkg-config libfreetype6-dev libhdf5-dev cmake && \
+  apt-get install --no-install-recommends -y \
+    libatlas-base-dev libhdf5-dev && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
-  TALIB_ARCH=$(dpkg-architecture -q DEB_BUILD_ARCH); export TALIB_ARCH && \
   curl -LO "${TALIB_URL}" && \
   cd / && dpkg -i  "/tmp/${TALIB_FILE}" && \
   # end TA-Lib
@@ -49,6 +49,8 @@ FROM python:${IMG_PYTHON_VERSION}-slim
 ARG TARGETARCH
 # Set environment variable for use in this stage
 ENV ARCH=$TARGETARCH
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 
@@ -99,10 +101,10 @@ RUN if [ -n "$APT_PROXY" ]; then \
       | tee "${APT_PROXY_FILE}" \
     ;fi && \
   apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+  apt-get install --no-install-recommends -y \
     openssh-client sshpass sudo curl graphviz git tzdata unzip less xclip nano-tiny \
     ffmpeg pandoc stow jq bash-completion procps fontconfig fonts-jetbrains-mono \
-    fonts-dejavu-core fonts-firacode pkg-config fonts-liberation2 && \
+    fonts-dejavu-core fonts-firacode fonts-liberation2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
     rm "${APT_PROXY_FILE}" \
@@ -110,6 +112,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   groupadd --gid "${USER_GID}" "${USER}" && \
   useradd -ms /bin/bash --uid "${USER_ID}" --gid "${USER_GID}" "${USER}" && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers && \
+  fc-cache -fv && \
   dpkg -i /tmp/"${TALIB_FILE}" && \
   python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
