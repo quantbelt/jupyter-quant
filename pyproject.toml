@@ -9,10 +9,10 @@ authors = [{ name = "gnzsnz" }]
 description = "Jupyter quant research environment. "
 readme = "README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE.txt" }
+license = "Apache-2.0"
+license-files = ["LICENSE.txt" ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
 ]
@@ -35,6 +35,7 @@ dependencies = [
     "jupyterlab==4.4.4",
     "jupyterlab-lsp==5.1.1",
     "jupyterlab_code_formatter==3.0.2",
+    "jupyterlab-fonts==3.0.0",
     "jupyterlab_widgets==3.0.15",
     "lightgbm==4.6.0",
     "matplotlib==3.10.3",

@@ -27,7 +27,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   echo "deb http://deb.debian.org/debian bookworm contrib" | tee /etc/apt/sources.list.d/contrib.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  libatlas-base-dev msttcorefonts pkg-config libfreetype6-dev libhdf5-dev cmake && \
+  libatlas-base-dev pkg-config libfreetype6-dev libhdf5-dev cmake && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   # # TA-Lib
   cd /tmp && \
@@ -90,8 +90,8 @@ ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
 # shell
 ENV SHELL="/bin/bash"
 
-COPY --from=builder /usr/share/fonts/truetype /usr/share/fonts/truetype
 COPY --from=builder /tmp/"$TALIB_FILE" /tmp/
+COPY 99-arial-alias.conf /etc/fonts/conf.d/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN if [ -n "$APT_PROXY" ]; then \
@@ -101,8 +101,8 @@ RUN if [ -n "$APT_PROXY" ]; then \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     openssh-client sshpass sudo curl graphviz git tzdata unzip less xclip nano-tiny \
-    ffmpeg pandoc stow jq bash-completion procps fonts-jetbrains-mono \
-    fonts-dejavu-core fonts-firacode pkg-config && \
+    ffmpeg pandoc stow jq bash-completion procps fontconfig fonts-jetbrains-mono \
+    fonts-dejavu-core fonts-firacode pkg-config fonts-liberation2 && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && \
   if [ -f "${APT_PROXY_FILE}" ]; then \
     rm "${APT_PROXY_FILE}" \
@@ -115,9 +115,12 @@ RUN if [ -n "$APT_PROXY" ]; then \
 
 USER $USER_ID:$USER_GID
 
+COPY --chown=${USER}:${USER} matplotlibrc ${BASE_CONFIG}/matplotlib/matplotlibrc
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN --mount=type=bind,from=builder,source=/wheels,target=/wheels \
   pip install --user --no-deps --compile --no-cache-dir /wheels/* && \
+  fc-cache -fv && \
   # Import matplotlib the first time to build the font cache.
   MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
   mkdir "${JUPYTER_SERVER_ROOT}"
