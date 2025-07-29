@@ -61,6 +61,7 @@ ENV IMAGE_VERSION=2502.1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_USER=true
+ENV PIP_NO_CACHE_DIR=1
 ENV PATH="$PATH:/home/$USER/.local/bin"
 
 # ta-lib
@@ -113,7 +114,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
   useradd -ms /bin/bash --uid "${USER_ID}" --gid "${USER_GID}" "${USER}" && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers && \
   fc-cache -fv && \
-  dpkg -i /tmp/"${TALIB_FILE}" && \
+  dpkg -i /tmp/"${TALIB_FILE}" && rm /tmp/"${TALIB_FILE}" \
   python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
 USER $USER_ID:$USER_GID
