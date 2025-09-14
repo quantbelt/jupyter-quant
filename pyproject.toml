@@ -69,7 +69,6 @@ dependencies = [
 sk-util = ["skfolio==0.13.0", "sktime==0.38.5"]
 bayes = [
     "arviz==0.22.0",
-    "bambi==0.15.0",
     "pymc==5.25.1",
     "formulae==0.5.4",
     "graphviz==0.21",
