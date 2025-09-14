@@ -21,8 +21,8 @@ COPY README.md LICENSE.txt pyproject.toml /
 COPY jupyter_quant/__init__.py /jupyter_quant/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -LO "${TALIB_URL}" && \ ## TA-Lib
-  dpkg -i  "/${TALIB_FILE}" && \
+RUN curl -LO "${TALIB_URL}" && \
+  dpkg -i  "${TALIB_FILE}" && \
   # end TA-Lib
   pip wheel --no-cache-dir --wheel-dir /wheels . && \
   rm /wheels/jupyter_quant-*.whl
