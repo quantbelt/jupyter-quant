@@ -2,7 +2,7 @@
 # Builder stage
 ###############################################################################
 # hadolint global ignore=DL3003,DL3008,SC2028
-ARG IMG_PYTHON_VERSION=3.12
+ARG IMG_PYTHON_VERSION=3.13
 FROM python:$IMG_PYTHON_VERSION AS builder
 
 # Use TARGETARCH build argument
@@ -12,7 +12,6 @@ ENV ARCH=$TARGETARCH
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV APT_PROXY_FILE=/etc/apt/apt.conf.d/01proxy
 ARG TALIB_VERSION=0.6.4
 ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
 ARG TALIB_FILE="ta-lib_${TALIB_VERSION}_${ARCH}.deb"
@@ -22,18 +21,8 @@ COPY README.md LICENSE.txt pyproject.toml /
 COPY jupyter_quant/__init__.py /jupyter_quant/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN if [ -n "$APT_PROXY" ]; then \
-      echo "Acquire::http { Proxy \"${APT_PROXY}\"; }"  \
-      | tee "${APT_PROXY_FILE}" \
-    ;fi && \
-  apt-get update && \
-  apt-get install --no-install-recommends -y \
-    libatlas-base-dev libhdf5-dev && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* && \
-  # # TA-Lib
-  cd /tmp && \
-  curl -LO "${TALIB_URL}" && \
-  cd / && dpkg -i  "/tmp/${TALIB_FILE}" && \
+RUN curl -LO "${TALIB_URL}" && \ ## TA-Lib
+  dpkg -i  "/${TALIB_FILE}" && \
   # end TA-Lib
   pip wheel --no-cache-dir --wheel-dir /wheels . && \
   rm /wheels/jupyter_quant-*.whl
@@ -42,7 +31,7 @@ RUN if [ -n "$APT_PROXY" ]; then \
 ###############################################################################
 # Final stage
 ###############################################################################
-ARG IMG_PYTHON_VERSION=3.12
+ARG IMG_PYTHON_VERSION=3.13
 FROM python:${IMG_PYTHON_VERSION}-slim
 
 # Use TARGETARCH build argument
@@ -93,7 +82,7 @@ ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
 # shell
 ENV SHELL="/bin/bash"
 
-COPY --from=builder /tmp/"$TALIB_FILE" /tmp/
+COPY --from=builder /"$TALIB_FILE" /tmp/
 COPY 99-arial-alias.conf /etc/fonts/conf.d/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
