@@ -1,11 +1,10 @@
-version: "3.6"
 services:
   jupyter-quant:
     build:
       context: .
-      platforms:
-        - "linux/amd64"
-        #- "linux/arm64"
+      # platforms:
+      #   - "linux/amd64"
+      #   - "linux/arm64"
       args:
         USER: ${USER}
         USER_ID: ${USER_ID}
