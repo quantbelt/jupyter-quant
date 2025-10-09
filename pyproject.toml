@@ -37,7 +37,7 @@ dependencies = [
     "jupyterlab_code_formatter==3.0.2",
     "jupyterlab_widgets==3.0.15",
     "lightgbm==4.6.0",
-    "matplotlib==3.10.6",
+    "matplotlib==3.10.7",
     "numba==0.62.1",
     "numexpr==2.13.1",
     "numpy==2.2.6",
