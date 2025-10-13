@@ -30,7 +30,7 @@ dependencies = [
     "ib_async==1.0.3",
     "ipympl==0.9.8",
     "ipywidgets==8.1.7",
-    "isort==6.1.0",
+    "isort==7.0.0",
     "jedi-language-server==0.45.1",
     "jupyterlab==4.4.9",
     "jupyterlab-lsp==5.2.0",
