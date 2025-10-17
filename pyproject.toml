@@ -23,7 +23,7 @@ dependencies = [
     "bottleneck==1.6.0",
     "dask[dataframe,distributed]==2025.10.0",
     "empyrical-reloaded==0.5.12",
-    "exchange_calendars==4.11.1",
+    "exchange_calendars==4.11.2",
     "h5py==3.15.0",
     "hurst==0.0.5",
     "ib-fundamental==0.0.5",
