@@ -31,7 +31,7 @@ dependencies = [
     "ipympl==0.9.8",
     "ipywidgets==8.1.7",
     "isort==7.0.0",
-    "jedi-language-server==0.45.1",
+    "jedi-language-server==0.46.0",
     "jupyterlab==4.4.10",
     "jupyterlab-lsp==5.2.0",
     "jupyterlab_code_formatter==3.0.2",
