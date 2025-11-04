@@ -31,16 +31,6 @@ jobs:
       # You can test your matrix by printing the current Python version
         - name: Display Python version
           run: python -c "import sys; print(sys.version)"
-        - name: Install talib
-          run: |
-            TALIB_VERSION=$(grep "TALIB_VERSION" Dockerfile|head -1|cut -d"=" -f2)
-            SYS_ARCH=$(uname -m | sed 's/aarch64/arm64/' | sed 's/x86_64/amd64/')
-            BASE_URL="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
-            TALIB_FILE="ta-lib_${TALIB_VERSION}_${SYS_ARCH}.deb"
-            TA_URL="${BASE_URL}/${TALIB_FILE}"
-            curl -L -o /tmp/${TALIB_FILE} ${TA_URL}
-            sudo dpkg -i /tmp/${TALIB_FILE}
-
         - name: Install dependencies
           run: |
               python -m pip install --user -U build pip setuptools wheel
