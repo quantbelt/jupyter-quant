@@ -12,19 +12,11 @@ ENV ARCH=$TARGETARCH
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG TALIB_VERSION=0.6.4
-ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
-ARG TALIB_FILE="ta-lib_${TALIB_VERSION}_${ARCH}.deb"
-ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
-
 COPY README.md LICENSE.txt pyproject.toml /
 COPY jupyter_quant/__init__.py /jupyter_quant/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -LO "${TALIB_URL}" && \
-  dpkg -i  "${TALIB_FILE}" && \
-  # end TA-Lib
-  pip wheel --no-cache-dir --wheel-dir /wheels . && \
+RUN pip wheel --no-cache-dir --wheel-dir /wheels . && \
   rm /wheels/jupyter_quant-*.whl
 
 
@@ -53,12 +45,6 @@ ENV PIP_USER=true
 ENV PIP_NO_CACHE_DIR=1
 ENV PATH="$PATH:/home/$USER/.local/bin"
 
-# ta-lib
-ARG TALIB_VERSION=0.6.4
-ARG GH_URL_BASE="https://github.com/TA-Lib/ta-lib/releases/download/v${TALIB_VERSION}"
-ARG TALIB_FILE="ta-lib_${TALIB_VERSION}_${ARCH}.deb"
-ARG TALIB_URL="${GH_URL_BASE}/${TALIB_FILE}"
-
 # base data directory
 ENV BASE_DATA="/home/${USER}/.local"
 ENV BASE_CONFIG="/home/${USER}/.config"
@@ -82,7 +68,6 @@ ENV MPLCONFIGDIR="${BASE_CONFIG}/matplotlib"
 # shell
 ENV SHELL="/bin/bash"
 
-COPY --from=builder /"$TALIB_FILE" /tmp/
 COPY 99-arial-alias.conf /etc/fonts/conf.d/
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -103,7 +88,6 @@ RUN if [ -n "$APT_PROXY" ]; then \
   useradd -ms /bin/bash --uid "${USER_ID}" --gid "${USER_GID}" "${USER}" && \
   echo "${USER} ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers && \
   fc-cache -fv && \
-  dpkg -i /tmp/"${TALIB_FILE}" && rm /tmp/"${TALIB_FILE}" && \
   python -c "import compileall; compileall.compile_path(maxlevels=10)"
 
 USER $USER_ID:$USER_GID
