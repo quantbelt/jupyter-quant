@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [{ name = "gnzsnz" }]
 description = "Jupyter quant research environment. "
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt" ]
 classifiers = [
@@ -69,7 +69,8 @@ dependencies = [
 sk-util = ["skfolio==0.15.2", "sktime==0.40.1"]
 bayes = [
     "arviz==0.22.0",
-    "pymc==5.26.0",
+    "bambi==0.16.0",    
+    "pymc==5.26.1",
     "formulae==0.5.4",
     "graphviz==0.21",
 ]
