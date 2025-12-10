@@ -38,7 +38,7 @@ dependencies = [
     "jupyterlab_widgets==3.0.16",
     "lightgbm==4.6.0",
     "matplotlib==3.10.7",
-    "numba==0.62.1",
+    "numba==0.63.1",
     "numexpr==2.14.1",
     "numpy==2.3.5",
     "optuna==4.6.0",
