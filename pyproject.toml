@@ -56,7 +56,7 @@ dependencies = [
     "scipy==1.16.3",
     "sdepy==1.2.0",
     "seaborn==0.13.2",
-    "shap==0.49.1",
+    "shap==0.50.0",
     "statsmodels==0.14.6",
     "TA-Lib==0.6.8",
     "tzdata==2025.3",
