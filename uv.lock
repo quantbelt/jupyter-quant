@@ -9,6 +9,18 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "aeventkit"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5c/8c/c08db1a1910f8d04ec6a524de522edd0bac181bdf94dbb01183f7685cd77/aeventkit-2.1.0.tar.gz", hash = "sha256:4e7d81bb0a67227121da50a23e19e5bbf13eded541a9f4857eeb6b7b857b738a", size = 24703, upload-time = "2025-06-22T15:54:03.961Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8d/8c/2a4b912b1afa201b25bdd0f5bccf96d5a8b5dccb6131316a8dd2d9cabcc1/aeventkit-2.1.0-py3-none-any.whl", hash = "sha256:962d43f79e731ac43527f2d0defeed118e6dbaa85f1487f5667540ebb8f00729", size = 26678, upload-time = "2025-06-22T15:54:02.141Z" },
+]
+
+[[package]]
 name = "alembic"
 version = "1.17.2"
 source = { registry = "https://pypi.org/simple" }
@@ -160,7 +172,7 @@ wheels = [
 
 [[package]]
 name = "arviz"
-version = "0.22.0"
+version = "0.23.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "h5netcdf" },
@@ -174,9 +186,9 @@ dependencies = [
     { name = "xarray" },
     { name = "xarray-einstats" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/31/24/727d666e137f0b8c4a4fdc3dc91484ab2ed1206ac61733b2688efa85b5e7/arviz-0.22.0.tar.gz", hash = "sha256:d9df7592f1ce77ce69f7504dba13f8d550204c49c23e54849861dbcb2c640954", size = 1591019, upload-time = "2025-07-09T10:07:21.525Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/66/f2/22bd00891a2c1ff2738f6168eb79d141b71eb35d918a299bc5d526c2b542/arviz-0.23.0.tar.gz", hash = "sha256:772bb600c2b82eac239c5a6f0077cb5fc0536744bc32755e8471b008d0f26b8d", size = 1593073, upload-time = "2025-12-15T14:34:52.638Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/81/38/5a3ee119be7f9f94f03a7626ee8edc52c9c9a9720cb020fa1f01fc87d4f2/arviz-0.22.0-py3-none-any.whl", hash = "sha256:336a3a4b1aa981997945f9ca104ca9f827e9c943f13760b18bf645ee5b12d56d", size = 1672062, upload-time = "2025-07-09T10:07:19.643Z" },
+    { url = "https://files.pythonhosted.org/packages/f8/3b/821e761f0396f68ab1adfce343dcfdb19838bfa051cc38d1923ef282e1ec/arviz-0.23.0-py3-none-any.whl", hash = "sha256:f09c0e965842ecec9c7ca4f7318ca6fd8b33b6581f9c5b657e88cad196087fb3", size = 1673608, upload-time = "2025-12-15T14:34:50.961Z" },
 ]
 
 [[package]]
@@ -919,7 +931,7 @@ wheels = [
 
 [[package]]
 name = "dask"
-version = "2025.11.0"
+version = "2025.12.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -931,9 +943,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "toolz" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/db/33/eacaa72731f7fc64868caaf2d35060d50049eff889bd217263e68f76472f/dask-2025.11.0.tar.gz", hash = "sha256:23d59e624b80ee05b7cc8df858682cca58262c4c3b197ccf61da0f6543c8f7c3", size = 10984781, upload-time = "2025-11-06T16:56:51.535Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/49/ae/92fca08ff8fe3e8413842564dd55ee30c9cd9e07629e1bf4d347b005a5bf/dask-2025.12.0.tar.gz", hash = "sha256:8d478f2aabd025e2453cf733ad64559de90cf328c20209e4574e9543707c3e1b", size = 10995316, upload-time = "2025-12-12T14:59:10.885Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/54/a46920229d12c3a6e9f0081d1bdaeffad23c1826353ace95714faee926e5/dask-2025.11.0-py3-none-any.whl", hash = "sha256:08c35a8146c05c93b34f83cf651009129c42ee71762da7ca452fb7308641c2b8", size = 1477108, upload-time = "2025-11-06T16:56:44.892Z" },
+    { url = "https://files.pythonhosted.org/packages/6f/3a/2121294941227c548d4b5f897a8a1b5f4c44a58f5437f239e6b86511d78e/dask-2025.12.0-py3-none-any.whl", hash = "sha256:4213ce9c5d51d6d89337cff69de35d902aa0bf6abdb8a25c942a4d0281f3a598", size = 1481293, upload-time = "2025-12-12T14:58:59.32Z" },
 ]
 
 [package.optional-dependencies]
@@ -1000,7 +1012,7 @@ wheels = [
 
 [[package]]
 name = "distributed"
-version = "2025.11.0"
+version = "2025.12.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1019,9 +1031,9 @@ dependencies = [
     { name = "urllib3" },
     { name = "zict" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c5/be/085a60b627c1f2b795827ce41d4cc1e11e74ffdadcb5235ee5fb620f7929/distributed-2025.11.0.tar.gz", hash = "sha256:372c2f0c2faa890fc42188349969ba468161a9b356df49c4ca7d9a8d551a7ace", size = 2119140, upload-time = "2025-11-06T16:57:32.391Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/f7/25e4ed891f4b347a7c0e6ad6106b564938ddd6f1832aa03f1505d0949cb4/distributed-2025.12.0.tar.gz", hash = "sha256:b1e58f1b3d733885335817562ee1723379f23733e4ef3546f141080d9cb01a74", size = 2102841, upload-time = "2025-12-12T14:58:57.74Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/ec/da78855318971c2be94d0283a41de6941a6b9f16146fb00babc74903ae01/distributed-2025.11.0-py3-none-any.whl", hash = "sha256:1794ff25b19ba347ccce563fb1dd5898c3bb30f500b15f8c20ad373f6281b30f", size = 1009248, upload-time = "2025-11-06T16:57:28.714Z" },
+    { url = "https://files.pythonhosted.org/packages/87/45/ca760deab4de448e6c0e3860fc187bcc49216eabda379f6ce68065158843/distributed-2025.12.0-py3-none-any.whl", hash = "sha256:35d18449002ea191e97f7e04a33e16f90c2243486be52d4d0f991072ea06b48a", size = 1008379, upload-time = "2025-12-12T14:58:54.195Z" },
 ]
 
 [[package]]
@@ -1091,18 +1103,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/42/c0/ba049efa7d216221713cffc303641bd73bbb309ff0e4e2a623f32af2a4ea/etuples-0.3.10.tar.gz", hash = "sha256:26fde81d7e822837146231bfce4d6ba67eab5d7ed55bc58ba7437c2568051167", size = 21493, upload-time = "2025-07-14T18:49:35.654Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/39/19/bf11636df040a9f9c3fd6959aedea5b5cfddd751272732278fb04ee0a78c/etuples-0.3.10-py3-none-any.whl", hash = "sha256:4408c7940ef06af52dbbea0954a8a1817ed5750ce905ff48091ac3cd3aeb720b", size = 12201, upload-time = "2025-07-14T18:49:34.557Z" },
-]
-
-[[package]]
-name = "eventkit"
-version = "1.0.3"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/16/1e/0fac4e45d71ace143a2673ec642701c3cd16f833a0e77a57fa6a40472696/eventkit-1.0.3.tar.gz", hash = "sha256:99497f6f3c638a50ff7616f2f8cd887b18bbff3765dc1bd8681554db1467c933", size = 28320, upload-time = "2023-12-11T11:41:35.339Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/d9/7497d650b69b420e1a913329a843e16c715dac883750679240ef00a921e2/eventkit-1.0.3-py3-none-any.whl", hash = "sha256:0e199527a89aff9d195b9671ad45d2cc9f79ecda0900de8ecfb4c864d67ad6a2", size = 31837, upload-time = "2023-12-11T11:41:33.358Z" },
 ]
 
 [[package]]
@@ -1402,15 +1402,16 @@ wheels = [
 
 [[package]]
 name = "ib-async"
-version = "1.0.3"
+version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "eventkit" },
+    { name = "aeventkit" },
     { name = "nest-asyncio" },
+    { name = "tzdata" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6f/b8/991c16a06bfcbcfff5a202932e9f701a47f467058037c65771ebbbaecb19/ib_async-1.0.3.tar.gz", hash = "sha256:593691e1a8a1557ac053c601b70bf1527163a517cea3bbfdb2fadfc8a381d15e", size = 74795, upload-time = "2024-07-06T17:06:53.471Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/30/4d/dfc1da8224c3ffcdcd668da7283c4e5f14239a07f83ea66af99700296fc3/ib_async-2.1.0.tar.gz", hash = "sha256:6a03a87d6c06acacb0217a5bea60a8a168ecd5b5a7e86e1c73678d5b48cbc796", size = 87678, upload-time = "2025-12-08T01:42:32.004Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/26/83/0b69087dcdcf6700060dfc155014cc968a989499e2cc42fd8ecdc2238831/ib_async-1.0.3-py3-none-any.whl", hash = "sha256:3c8742e43084db99a3ecba991bcca3223a05fde270ce9dcac035697bb1855649", size = 77208, upload-time = "2024-07-06T17:06:51.807Z" },
+    { url = "https://files.pythonhosted.org/packages/80/e7/8f33801788c66f15e9250957ff7f53a8000843f79af1a3ed7a96def0e96b/ib_async-2.1.0-py3-none-any.whl", hash = "sha256:f6d8b991bdbd6dd38e700c61b3dced06ebe0f14be4e5263e2ef10ba10b88d434", size = 88876, upload-time = "2025-12-08T01:42:30.883Z" },
 ]
 
 [[package]]
@@ -1904,25 +1905,25 @@ sk-util = [
 requires-dist = [
     { name = "alphalens-reloaded", specifier = "==0.4.6" },
     { name = "arch", specifier = "==8.0.0" },
-    { name = "arviz", marker = "extra == 'bayes'", specifier = "==0.22.0" },
+    { name = "arviz", marker = "extra == 'bayes'", specifier = "==0.23.0" },
     { name = "bambi", marker = "extra == 'bayes'", specifier = "==0.16.0" },
     { name = "black", specifier = "==25.12.0" },
     { name = "bottleneck", specifier = "==1.6.0" },
     { name = "build", marker = "extra == 'dev'" },
-    { name = "dask", extras = ["dataframe", "distributed"], specifier = "==2025.11.0" },
+    { name = "dask", extras = ["dataframe", "distributed"], specifier = "==2025.12.0" },
     { name = "empyrical-reloaded", specifier = "==0.5.12" },
     { name = "exchange-calendars", specifier = "==4.11.3" },
     { name = "formulae", marker = "extra == 'bayes'", specifier = "==0.5.4" },
     { name = "graphviz", marker = "extra == 'bayes'", specifier = "==0.21" },
     { name = "h5py", specifier = "==3.15.1" },
     { name = "hurst", specifier = "==0.0.5" },
-    { name = "ib-async", specifier = "==1.0.3" },
+    { name = "ib-async", specifier = "==2.1.0" },
     { name = "ib-fundamental", specifier = "==0.0.5" },
     { name = "ipympl", specifier = "==0.9.8" },
     { name = "ipywidgets", specifier = "==8.1.8" },
     { name = "isort", specifier = "==7.0.0" },
     { name = "jedi-language-server", specifier = "==0.46.0" },
-    { name = "jupyterlab", specifier = "==4.5.0" },
+    { name = "jupyterlab", specifier = "==4.5.1" },
     { name = "jupyterlab-code-formatter", specifier = "==3.0.2" },
     { name = "jupyterlab-lsp", specifier = "==5.2.0" },
     { name = "jupyterlab-widgets", specifier = "==3.0.16" },
@@ -1954,7 +1955,7 @@ requires-dist = [
     { name = "statsmodels", specifier = "==0.14.6" },
     { name = "ta-lib", specifier = "==0.6.8" },
     { name = "twine", marker = "extra == 'dev'" },
-    { name = "tzdata", specifier = "==2025.2" },
+    { name = "tzdata", specifier = "==2025.3" },
     { name = "wheel", marker = "extra == 'dev'" },
     { name = "yellowbrick", specifier = "==1.5" },
     { name = "yfinance", specifier = "==0.2.66" },
@@ -2007,7 +2008,7 @@ wheels = [
 
 [[package]]
 name = "jupyterlab"
-version = "4.5.0"
+version = "4.5.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "async-lru" },
@@ -2024,9 +2025,9 @@ dependencies = [
     { name = "tornado" },
     { name = "traitlets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/df/e5/4fa382a796a6d8e2cd867816b64f1ff27f906e43a7a83ad9eb389e448cd8/jupyterlab-4.5.0.tar.gz", hash = "sha256:aec33d6d8f1225b495ee2cf20f0514f45e6df8e360bdd7ac9bace0b7ac5177ea", size = 23989880, upload-time = "2025-11-18T13:19:00.365Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/09/21/413d142686a4e8f4268d985becbdb4daf060524726248e73be4773786987/jupyterlab-4.5.1.tar.gz", hash = "sha256:09da1ddfbd9eec18b5101dbb8515612aa1e47443321fb99503725a88e93d20d9", size = 23992251, upload-time = "2025-12-15T16:58:59.361Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6c/1e/5a4d5498eba382fee667ed797cf64ae5d1b13b04356df62f067f48bb0f61/jupyterlab-4.5.0-py3-none-any.whl", hash = "sha256:88e157c75c1afff64c7dc4b801ec471450b922a4eae4305211ddd40da8201c8a", size = 12380641, upload-time = "2025-11-18T13:18:56.252Z" },
+    { url = "https://files.pythonhosted.org/packages/af/c3/acced767eecc11a70c65c45295db5396c4f0c1937874937d5a76d7b177b6/jupyterlab-4.5.1-py3-none-any.whl", hash = "sha256:31b059de96de0754ff1f2ce6279774b6aab8c34d7082e9752db58207c99bd514", size = 12384821, upload-time = "2025-12-15T16:58:55.563Z" },
 ]
 
 [[package]]
@@ -4803,11 +4804,11 @@ wheels = [
 
 [[package]]
 name = "tzdata"
-version = "2025.2"
+version = "2025.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/95/32/1a225d6164441be760d75c2c42e2780dc0873fe382da3e98a2e1e48361e5/tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9", size = 196380, upload-time = "2025-03-23T13:54:43.652Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/a7/c202b344c5ca7daf398f3b8a477eeb205cf3b6f32e7ec3a6bac0629ca975/tzdata-2025.3.tar.gz", hash = "sha256:de39c2ca5dc7b0344f2eba86f49d614019d29f060fc4ebc8a417896a620b56a7", size = 196772, upload-time = "2025-12-13T17:45:35.667Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5c/23/c7abc0ca0a1526a0774eca151daeb8de62ec457e77262b66b359c3c7679e/tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8", size = 347839, upload-time = "2025-03-23T13:54:41.845Z" },
+    { url = "https://files.pythonhosted.org/packages/c7/b0/003792df09decd6849a5e39c28b513c06e84436a54440380862b5aeff25d/tzdata-2025.3-py2.py3-none-any.whl", hash = "sha256:06a47e5700f3081aab02b2e513160914ff0694bce9947d6b76ebd6bf57cfc5d1", size = 348521, upload-time = "2025-12-13T17:45:33.889Z" },
 ]
 
 [[package]]
