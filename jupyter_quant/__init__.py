@@ -3,7 +3,7 @@
 import re
 from importlib.metadata import version
 
-__version__ = version("cboe_toolz")
+__version__ = version("jupyter_quant")
 
 # Extract only the numeric parts for __version_info__
 __version_info__ = tuple(
