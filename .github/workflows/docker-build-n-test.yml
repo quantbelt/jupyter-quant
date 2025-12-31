@@ -33,7 +33,7 @@ jobs:
           run: python -c "import sys; print(sys.version)"
         - name: Install dependencies
           run: |
-              python -m pip install --user -U build pip setuptools wheel
+              python3 -m pip install --user -U build pip setuptools wheel
         - name: Build a binary wheel and a source tarball
           run: python3 -m build
         - name: install
@@ -79,6 +79,10 @@ jobs:
             ${{ env.GH_IMAGE_NAME }}
           flavor: |
             latest=true
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
 
       - name: Build Docker image
         uses: docker/build-push-action@v6
@@ -94,5 +98,5 @@ jobs:
             USER_ID=${{ env.USER_ID }}
             USER_GID=${{ env.USER_GID }}
             IMG_PYTHON_VERSION=${{ env.IMG_PYTHON_VERSION}}
-          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

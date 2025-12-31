@@ -74,7 +74,7 @@ bayes = [
     "formulae==0.5.4",
     "graphviz==0.21",
 ]
-dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
+dev = ["pre-commit>=3.7.1", "build", "wheel", "twine", "setuptools-scm"]
 
 [project.urls]
 "Homepage" = "https://github.com/quantbelt/jupyter-quant"
@@ -84,4 +84,4 @@ dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
 packages = ["jupyter_quant"]
 
 [tool.setuptools_scm]
-# This enables automatic versioning from Git
+# setuptools_scm placeholder
