@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0","setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -22,11 +22,13 @@ dependencies = [
     "black==25.12.0",
     "bottleneck==1.6.0",
     "dask[dataframe,distributed]==2025.12.0",
+    "dask[dataframe,distributed]==2025.12.0",
     "empyrical-reloaded==0.5.12",
     "exchange_calendars==4.11.3",
     "h5py==3.15.1",
     "hurst==0.0.5",
     "ib-fundamental==0.0.5",
+    "ib_async==2.1.0",
     "ib_async==2.1.0",
     "ipympl==0.9.8",
     "ipywidgets==8.1.8",
@@ -49,7 +51,7 @@ dependencies = [
     "py_vollib_vectorized==0.1.1",
     "pyarrow==22.0.0",
     "pyfolio-reloaded==0.9.9",
-    "pykalman==0.11.0",
+    "pykalman==0.11.1",
     "PyPortfolioOpt==1.5.6",
     "quantstats-lumi==1.0.1",
     "scikit-learn==1.7.2",
@@ -61,20 +63,20 @@ dependencies = [
     "TA-Lib==0.6.8",
     "tzdata==2025.3",
     "yellowbrick==1.5",
-    "yfinance==0.2.66",
+    "yfinance==1.0",
     "zipline-reloaded==3.1.1",
 ]
 
 [project.optional-dependencies]
-sk-util = ["skfolio==0.15.2", "sktime==0.40.1"]
+sk-util = ["skfolio==0.15.3", "sktime==0.40.1"]
 bayes = [
     "arviz==0.23.0",
-    "bambi==0.16.0",    
-    "pymc==5.26.1",
+    "bambi==0.16.0",
+    "pymc==5.27.0",
     "formulae==0.5.4",
     "graphviz==0.21",
 ]
-dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
+dev = ["pre-commit>=3.7.1", "build", "wheel", "twine", "setuptools-scm"]
 
 [project.urls]
 "Homepage" = "https://github.com/quantbelt/jupyter-quant"
@@ -83,5 +85,5 @@ dev = ["pre-commit>=3.7.1", "build", "wheel", "twine"]
 [tool.setuptools]
 packages = ["jupyter_quant"]
 
-[tool.setuptools.dynamic]
-version = {attr = "jupyter_quant.__version__"}
+[tool.setuptools_scm]
+# setuptools_scm placeholder

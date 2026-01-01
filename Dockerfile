@@ -1,7 +1,7 @@
 ###############################################################################
 # Builder stage
 ###############################################################################
-# hadolint global ignore=DL3003,DL3008,SC2028
+# hadolint global ignore=DL3003,DL3008,SC2028,DL3013
 ARG IMG_PYTHON_VERSION=3.13
 FROM python:$IMG_PYTHON_VERSION AS builder
 
@@ -12,11 +12,14 @@ ENV ARCH=$TARGETARCH
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY README.md LICENSE.txt pyproject.toml /
-COPY jupyter_quant/__init__.py /jupyter_quant/
+WORKDIR /builder
+COPY . .
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN pip wheel --no-cache-dir --wheel-dir /wheels . && \
+RUN python3 -m pip install --no-cache-dir -U \
+  build pip setuptools wheel setuptools_scm && \
+  python3 -m build && \
+  pip wheel --no-cache-dir --wheel-dir /wheels . && \
   rm /wheels/jupyter_quant-*.whl
 
 
@@ -114,4 +117,3 @@ LABEL org.opencontainers.image.source=https://github.com/quantbelt/jupyter-quant
 LABEL org.opencontainers.image.url=https://github.com/quantbelt/jupyter-quant/pkgs/container/jupyter-quant
 LABEL org.opencontainers.image.description="A dockerized Jupyter quant research enviroment. "
 LABEL org.opencontainers.image.licenses="Apache License Version 2.0"
-LABEL org.opencontainers.image.version=${IMAGE_VERSION}
