@@ -71,7 +71,7 @@ bayes = [
     "arviz==0.23.0",
     "bambi==0.16.0",
     "pymc==5.27.0",
-    "formulae==0.5.4",
+    "formulae==0.6.1",
     "graphviz==0.21",
 ]
 dev = ["pre-commit>=3.7.1", "build", "wheel", "twine", "setuptools-scm"]
