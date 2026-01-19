@@ -12,8 +12,6 @@ A dockerized Jupyter quant research environment.
 - [ib_async](https://github.com/ib-api-reloaded/ib_async) for Interactive Broker
   connectivity. Works well with
   [IB Gateway](https://github.com/gnzsnz/ib-gateway-docker) docker image.
-  [ib_insync](https://github.com/erdewit/ib_insync/) has been invaluable all
-  this time, RIP Ewald.
 - Includes all major Python packages for statistical and time series analysis,
   see [requirements](https://github.com/gnzsnz/jupyter-quant/blob/master/requirements.txt).
   For an extensive list check
@@ -21,8 +19,6 @@ A dockerized Jupyter quant research environment.
 - [Zipline-reloaded](https://github.com/stefan-jansen/zipline-reloaded/),
   [pyfolio-reloaded](https://github.com/stefan-jansen/pyfolio-reloaded)
   and [alphalens-reloaded](https://github.com/stefan-jansen/alphalens-reloaded).
-- [ib_fundamental](https://github.com/quantbelt/ib_fundamental) for IBKR
-  fundamental data.
 - You can install it as a python package, just `pip install -U jupyter-quant`
 - Designed for [ephemeral](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers)
   containers. Relevant data for your environment will survive your container.
@@ -216,19 +212,6 @@ you will find example scripts to load ssh keys and install python packages.
 
 Jupyter-quant is available as a package in [pypi](https://pypi.org/project/jupyter-quant/).
 It's a meta-package that pulls all dependencies in it's highest possible version.
-
-Dependencies:
-
-- hdf5 (see below)
-- TA-lib see [instructions](https://pypi.org/project/TA-Lib/)
-
-```bash
-# ubuntu/debian, see install instructions above for TA-lib
-sudo apt-get install libhdf5-dev
-
-# osx
-brew install hdf5 ta-lib
-```
 
 Install [pypi package](https://pypi.org/project/jupyter-quant/).
 
