@@ -3,9 +3,9 @@ name: Build 🛠️ and test 🧪 jupyter-quant Docker Image and pypi package �
 on:
   workflow_dispatch:
   push:
-    branches: [ "master", "dev" ]
+    branches: ["master", "dev"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 env:
   IMAGE_NAME: gnzsnz/jupyter-quant
@@ -15,34 +15,28 @@ env:
 
 jobs:
   py_build:
-
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-            python-version: ['3.11', '3.12', '3.13']
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
-        - uses: actions/checkout@v6
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v6
-          with:
-              python-version: ${{ matrix.python-version }}
-              cache: pip
+      - uses: actions/checkout@v6
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
       # You can test your matrix by printing the current Python version
-        - name: Display Python version
-          run: python -c "import sys; print(sys.version)"
-        - name: Install dependencies
-          run: |
-              python3 -m pip install --user -U build pip setuptools wheel
-        - name: Build a binary wheel and a source tarball
-          run: python3 -m build
-        - name: install
-          run: python -m pip install .[bayes,sk-util]
-        # - uses: pypa/gh-action-pip-audit@v1.1.0
-        #   with:
-        #     inputs: "."
-        #     local: true
-        #     summary: true
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --user -U build pip setuptools wheel
+      - name: Build a binary wheel and a source tarball
+        run: python3 -m build
+      - name: install
+        run: python -m pip install .[bayes,sk-util]
 
   docker_buildntest:
     name: Build and test
@@ -51,7 +45,6 @@ jobs:
     continue-on-error: true
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v6
 
