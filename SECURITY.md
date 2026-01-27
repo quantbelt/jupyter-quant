@@ -19,11 +19,6 @@ The preferred and fastest way to report a potential vulnerability is:
 → **[Open a private security advisory](https://github.com/quantbelt/jupyter-quant/security/advisories/new)**  
 (GitHub's built-in private vulnerability reporting — only maintainers can see it)
 
-Alternative channels (slower response time):
-
-- Email: 8376642+gnzsnz@users.noreply.github.com 
-- PGP key: [E045DA8C87CCE368AF61F5433C112C311EFE2FF5](https://github.com/gnzsnz.gpg)
-
 We aim to acknowledge receipt of your report within **48 hours** and provide an estimated timeline for resolution within the following **7 days**.
 
 ### What to include in your report
