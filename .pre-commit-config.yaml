@@ -25,7 +25,7 @@ repos:
   hooks:
   - id: markdownlint
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.36.0
+  rev: 0.36.1
   hooks:
   - id: check-github-workflows
   - id: check-github-actions
@@ -38,8 +38,3 @@ repos:
   hooks:
   - id: shellcheck
   - id: shfmt
-- repo: https://github.com/pypa/pip-audit
-  rev: v2.9.0
-  hooks:
-  - id: pip-audit
-    args: [ "--dry-run", "-l", "." ]
