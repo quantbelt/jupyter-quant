@@ -43,7 +43,7 @@ dependencies = [
     "optuna==4.7.0",
     "pandas==2.3.3",
     "patsy==1.0.2",
-    "pip==25.3",
+    "pip==26",
     "py_vollib==1.0.1",
     "py_vollib_vectorized==0.1.1",
     "pyarrow==23.0.0",
