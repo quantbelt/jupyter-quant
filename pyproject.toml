@@ -33,7 +33,7 @@ dependencies = [
     "jedi-language-server==0.46.0",
     "jupyterlab==4.5.3",
     "jupyterlab-lsp==5.2.0",
-    "jupyterlab_code_formatter==3.0.2",
+    "jupyterlab_code_formatter==3.0.3",
     "jupyterlab_widgets==3.0.16",
     "lightgbm==4.6.0",
     "matplotlib==3.10.8",
