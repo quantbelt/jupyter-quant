@@ -41,7 +41,7 @@ dependencies = [
     "numexpr==2.14.1",
     "numpy==2.3.5",
     "optuna==4.7.0",
-    "pandas==2.3.3",
+    "pandas==3.0.1",
     "patsy==1.0.2",
     "pip==26.0.1",
     "py_vollib==1.0.1",
