@@ -37,7 +37,7 @@ jobs:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v3
+            uses: docker/setup-qemu-action@v4
             with:
               platforms: ${{ env.PLATFORMS }}
 
@@ -104,7 +104,7 @@ jobs:
               fi
 
           - name: Set up QEMU
-            uses: docker/setup-qemu-action@v3
+            uses: docker/setup-qemu-action@v4
             if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
             with:
               platforms: ${{ env.PLATFORMS }}
