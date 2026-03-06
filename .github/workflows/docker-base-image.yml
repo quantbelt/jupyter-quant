@@ -42,7 +42,7 @@ jobs:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up Docker Buildx
-            uses: docker/setup-buildx-action@v3
+            uses: docker/setup-buildx-action@v4
 
           - name: Docker metadata
             id: meta
@@ -110,7 +110,7 @@ jobs:
               platforms: ${{ env.PLATFORMS }}
 
           - name: Set up Docker Buildx
-            uses: docker/setup-buildx-action@v3
+            uses: docker/setup-buildx-action@v4
             if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
 
           - name: Docker metadata
