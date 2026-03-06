@@ -46,7 +46,7 @@ jobs:
 
           - name: Docker metadata
             id: meta
-            uses: docker/metadata-action@v5
+            uses: docker/metadata-action@v6
             with:
               images: |
                 ${{ env.IMAGE_NAME }}
@@ -116,7 +116,7 @@ jobs:
           - name: Docker metadata
             id: meta
             if: ${{ steps.create_issue.outputs.dup_issue == 'no' }}
-            uses: docker/metadata-action@v5
+            uses: docker/metadata-action@v6
             with:
               images: |
                 ${{ env.IMAGE_NAME }}
