@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [{ name = "gnzsnz" }]
 description = "Jupyter quant research environment. "
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt" ]
 classifiers = [
@@ -55,7 +55,7 @@ dependencies = [
     "scipy==1.17.1",
     "sdepy==1.2.0",
     "seaborn==0.13.2",
-    "shap==0.49.1",
+    "shap==0.51.0",
     "statsmodels==0.14.6",
     "TA-Lib==0.6.8",
     "tzdata==2025.3",
@@ -78,6 +78,13 @@ dev = ["pre-commit>=3.7.1", "build", "wheel", "twine", "setuptools-scm"]
 [project.urls]
 "Homepage" = "https://github.com/quantbelt/jupyter-quant"
 "Bug Tracker" = "https://github.com/quantbelt/jupyter-quant/issues"
+
+[tool.uv]
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",   # macOS Apple Silicon
+    "sys_platform == 'linux'",                                    # Linux (all arches)
+    "sys_platform == 'win32'",                                    # Windows (optional, add if you support it)
+]
 
 [tool.setuptools]
 packages = ["jupyter_quant"]
