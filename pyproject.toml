@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [{ name = "gnzsnz" }]
 description = "Jupyter quant research environment. "
 readme = "README.md"
-requires-python = ">=3.11,<3.14"
+requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt" ]
 classifiers = [
@@ -82,8 +82,8 @@ dev = ["pre-commit>=3.7.1", "build", "wheel", "twine", "setuptools-scm"]
 [tool.uv]
 environments = [
     "sys_platform == 'darwin' and platform_machine == 'arm64'",   # macOS Apple Silicon
-    "sys_platform == 'linux'",                                    # Linux (all arches)
-    "sys_platform == 'win32'",                                    # Windows (optional, add if you support it)
+    "sys_platform == 'linux'",                                    # Linux
+    "sys_platform == 'win32'",                                    # Windows
 ]
 
 [tool.setuptools]
