@@ -39,7 +39,7 @@ dependencies = [
     "matplotlib==3.10.9",
     "numba==0.65.1",
     "numexpr==2.14.1",
-    "numpy==2.3.5",
+    "numpy==2.4.4",
     "optuna==4.8.0",
     "pandas==2.3.3",
     "patsy==1.0.2",
