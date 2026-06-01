@@ -41,7 +41,7 @@ dependencies = [
     "pandas==2.3.3",
     "patsy==1.0.2",
     "pip==26.1.2",
-    "vollib==1.0.10",
+    "vollib==1.0.11",
     "py_vollib_vectorized==0.1.1",
     "pyarrow==24.0.0",
     "pyfolio-reloaded==0.9.9",
