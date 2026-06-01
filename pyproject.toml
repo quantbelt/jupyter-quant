@@ -78,7 +78,6 @@ dev = [
     "twine",
     "setuptools-scm",
     "ruff",
-    "bandit",
     "tox",
     "check-manifest",
 ]
@@ -87,15 +86,15 @@ dev = [
 "Homepage" = "https://github.com/quantbelt/jupyter-quant"
 "Bug Tracker" = "https://github.com/quantbelt/jupyter-quant/issues"
 
+[tool.setuptools_scm]
+# setuptools_scm placeholder
+
+[tool.setuptools]
+packages = ["jupyter_quant"]
+
 [tool.uv]
 environments = [
     "sys_platform == 'darwin' and platform_machine == 'arm64'", # macOS Apple Silicon
     "sys_platform == 'linux'",                                  # Linux
     "sys_platform == 'win32'",                                  # Windows
 ]
-
-[tool.setuptools]
-packages = ["jupyter_quant"]
-
-[tool.setuptools_scm]
-# setuptools_scm placeholder

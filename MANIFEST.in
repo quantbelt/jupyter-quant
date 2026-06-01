@@ -1,0 +1,3 @@
+include jupyter_quant/*
+include pyproject.toml README.md LICENSE.txt
+exclude .dockerignore .env-dist .pre-commit-config.yaml 99-arial-alias.conf Dockerfile SECURITY.md entrypoint.sh matplotlibrc start_scripts/* template_docker-compose.yml  tox.ini  uv.lock
