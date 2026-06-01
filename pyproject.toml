@@ -48,7 +48,7 @@ dependencies = [
     "pykalman==0.11.2",
     "PyPortfolioOpt==1.6.0",
     "pyrefly==1.0.0",
-    "quantstats-lumi==1.1.4",
+    "quantstats-lumi==1.1.5",
     "scikit-learn==1.7.2",
     "scipy==1.17.1",
     "sdepy==1.2.0",
