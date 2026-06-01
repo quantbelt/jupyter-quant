@@ -13,3 +13,5 @@ pass/
 .vscode/
 .venv/
 uv.lock
+.tox/
+.mypy_cache/
