@@ -49,7 +49,7 @@ dependencies = [
     "PyPortfolioOpt==1.6.0",
     "pyrefly==1.1.1",
     "quantstats-lumi==1.1.5",
-    "scikit-learn==1.7.2",
+    "scikit-learn==1.9.0",
     "scipy==1.17.1",
     "sdepy==1.2.0",
     "seaborn==0.13.2",
