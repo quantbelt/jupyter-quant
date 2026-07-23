@@ -56,7 +56,7 @@ dependencies = [
     "shap==0.51.0",
     "statsmodels==0.14.6",
     "TA-Lib==0.7.1",
-    "tzdata==2025.3",
+    "tzdata==2026.3",
     "yellowbrick==1.5",
     "yfinance==1.5.1",
     "zipline-reloaded==3.1.1",
