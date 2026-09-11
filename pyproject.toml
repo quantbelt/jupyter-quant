@@ -37,7 +37,7 @@ dependencies = [
     "numba==0.67.0",
     "numexpr==2.14.2",
     "numpy==2.3.5",
-    "optuna==4.9.0",
+    "optuna==5.0.0",
     "pandas==2.3.3",
     "patsy==1.0.3",
     "pip==26.2.1",
