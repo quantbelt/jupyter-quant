@@ -68,7 +68,7 @@ bayes = [
     "arviz==0.23.4",
     "bambi==0.17.2",
     "pymc==5.28.5",
-    "formulae==0.6.2",
+    "formulae==0.7.0",
     "graphviz==0.21",
 ]
 dev = [
