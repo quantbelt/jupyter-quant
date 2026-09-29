@@ -2,7 +2,7 @@
 # Builder stage
 ###############################################################################
 # hadolint global ignore=DL3003,DL3008,SC2028,DL3013
-ARG IMG_PYTHON_VERSION=3.13
+ARG IMG_PYTHON_VERSION=3.14
 FROM python:$IMG_PYTHON_VERSION AS builder
 
 # Use TARGETARCH build argument
@@ -26,7 +26,7 @@ RUN python3 -m pip install --no-cache-dir -U \
 ###############################################################################
 # Final stage
 ###############################################################################
-ARG IMG_PYTHON_VERSION=3.13
+ARG IMG_PYTHON_VERSION=3.14
 FROM python:${IMG_PYTHON_VERSION}-slim
 
 # Use TARGETARCH build argument
