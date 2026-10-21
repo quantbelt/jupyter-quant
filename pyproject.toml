@@ -8,13 +8,13 @@ dynamic = ["version"]
 authors = [{ name = "gnzsnz" }]
 description = "Jupyter quant research environment. "
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.15"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
 ]
 dependencies = [
     "alphalens-reloaded==0.5.0",
@@ -40,7 +40,7 @@ dependencies = [
     "optuna==5.0.0",
     "pandas==2.3.3",
     "patsy==1.0.3",
-    "pip==26.2.1",
+    "pip==26.2.2",
     "vollib==1.0.11",
     "py_vollib_vectorized==0.1.1",
     "pyarrow==26.0.0",
@@ -50,24 +50,24 @@ dependencies = [
     "pyrefly==1.4.0",
     "quantstats-lumi==1.1.5",
     "scikit-learn==1.7.2",
-    "scipy==1.17.1",
+    "scipy==1.18.1",
     "sdepy==1.2.0",
     "seaborn==0.13.2",
-    "shap==0.51.0",
+    "shap==0.54.1",
     "statsmodels==0.15.0",
     "TA-Lib==0.8.2",
     "tzdata==2025.3",
     "yellowbrick==1.5",
     "yfinance==1.7.0",
-    "zipline-reloaded==3.1.1",
+    "zipline-reloaded==3.2.0",
 ]
 
 [project.optional-dependencies]
-sk-util = ["skfolio==1.9.4", "sktime==0.40.1"]
+sk-util = ["skfolio==1.9.7", "sktime==0.40.1"]
 bayes = [
-    "arviz==0.23.4",
-    "bambi==0.17.2",
-    "pymc==5.28.5",
+    "arviz==1.3.0",
+    "bambi==0.21.0",
+    "pymc==6.3.2",
     "formulae==0.6.2",
     "graphviz==0.21",
 ]

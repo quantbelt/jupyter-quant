@@ -161,7 +161,7 @@ Build wheels outside the container and import wheels into the container
 
 ```bash
 # make sure python version match .env-dist
-docker run -it --rm -v $PWD/wheels:/wheels python:3.11 bash
+docker run -it --rm -v $PWD/wheels:/wheels python:3.12 bash
 pip wheel --no-cache-dir --wheel-dir /wheels numpy
 ```
 
