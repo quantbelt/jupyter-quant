@@ -17,7 +17,7 @@ classifiers = [
     "Development Status :: 3 - Alpha",
 ]
 dependencies = [
-    "alphalens-reloaded==0.4.6",
+    "alphalens-reloaded==0.5.0",
     "arch==8.0.0",
     "bottleneck==1.6.0",
     "dask[dataframe,distributed]==2026.8.0",
