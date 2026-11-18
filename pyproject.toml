@@ -22,7 +22,7 @@ dependencies = [
     "bottleneck==1.6.1",
     "dask[dataframe,distributed]==2026.8.0",
     "empyrical-reloaded==0.7.2",
-    "exchange_calendars==4.13.2",
+    "exchange_calendars==4.13.3",
     "h5py==3.16.0",
     "hurst==0.0.5",
     "ib_async==2.1.0",
